@@ -1,1 +1,450 @@
-ndn
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Package Analysis Report</title>
+  <style>
+    :root {
+      --bg: #f4efe7;
+      --paper: #fffdf8;
+      --ink: #1f1b18;
+      --muted: #6e6255;
+      --line: #d8cfc2;
+      --up: #216869;
+      --down: #b23a48;
+      --flat: #7a6d61;
+      --accent: #c97c5d;
+      --shadow: 0 14px 40px rgba(54, 38, 26, 0.10);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(201,124,93,0.18), transparent 28%),
+        linear-gradient(180deg, #f7f1e7 0%, var(--bg) 100%);
+      color: var(--ink);
+    }
+    .wrap {
+      width: min(1280px, calc(100% - 32px));
+      margin: 32px auto 48px;
+    }
+    .hero {
+      background: linear-gradient(135deg, rgba(201,124,93,0.14), rgba(33,104,105,0.10)), var(--paper);
+      border: 1px solid rgba(216,207,194,0.9);
+      border-radius: 24px;
+      padding: 28px 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+    h1 { margin: 0 0 8px; font-size: 32px; line-height: 1.1; }
+    .meta { color: var(--muted); font-size: 14px; }
+    .toolbar {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+    .toolbar label { font-size: 14px; color: var(--muted); }
+    .toolbar select {
+      min-width: 180px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      font-size: 14px;
+    }
+    .quick-links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .quick-links a {
+      text-decoration: none;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.72);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+    .quick-links a:hover { background: rgba(201,124,93,0.12); }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    .card {
+      background: var(--paper);
+      border: 1px solid rgba(216,207,194,0.9);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    h2 { margin: 0; font-size: 24px; }
+    .subhead { color: var(--muted); margin-bottom: 18px; font-size: 14px; }
+    .badge {
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .badge.up { background: var(--up); }
+    .badge.down { background: var(--down); }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .roi-hero {
+      border-radius: 22px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.78);
+    }
+    .roi-hero.up {
+      background: linear-gradient(135deg, rgba(33,104,105,0.18), rgba(255,255,255,0.90));
+      border-color: rgba(33,104,105,0.35);
+    }
+    .roi-hero.down {
+      background: linear-gradient(135deg, rgba(178,58,72,0.18), rgba(255,255,255,0.90));
+      border-color: rgba(178,58,72,0.35);
+    }
+    .roi-hero.flat {
+      background: linear-gradient(135deg, rgba(122,109,97,0.14), rgba(255,255,255,0.90));
+      border-color: rgba(122,109,97,0.35);
+    }
+    .roi-hero-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .roi-hero-values {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .roi-hero-values .arrow {
+      opacity: 0.55;
+      font-weight: 600;
+      margin: 0 8px;
+    }
+    .roi-hero-delta {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(255,255,255,0.72);
+    }
+    .metric span { display: block; color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+    .metric strong { display: block; font-size: 15px; margin-bottom: 4px; }
+    .metric em { font-style: normal; font-size: 13px; }
+    .primary { margin: 0 0 18px; font-size: 15px; color: #3d342d; }
+    .tables { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .table-wrap {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.78);
+    }
+    h3 {
+      margin: 0;
+      padding: 14px 16px;
+      font-size: 16px;
+      background: rgba(201,124,93,0.10);
+      border-bottom: 1px solid var(--line);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid rgba(216,207,194,0.75);
+      vertical-align: top;
+      font-size: 13px;
+    }
+    th { color: var(--muted); font-weight: 600; background: rgba(244,239,231,0.65); }
+    tr:last-child td { border-bottom: none; }
+    .up { color: var(--up); font-weight: 700; }
+    .down { color: var(--down); font-weight: 700; }
+    .flat { color: var(--flat); font-weight: 700; }
+    @media (max-width: 980px) {
+      .tables { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>项目日表现汇总</h1>
+      <div class="meta">生成时间：2026-04-11 00:10:12 | 数据源：C:\Users\Administrator\Desktop\codex\0324\outputs\bi_merge_cleaning\merged_cleaned_adjust_cohort__2026-04-01_to_2026-04-10.csv</div>
+      <div class="toolbar">
+        <label for="package-jump">快速定位项目</label>
+        <select id="package-jump">
+          <option value="">请选择项目</option>
+          <option value="pkg-RM07">RM07</option><option value="pkg-RM09B">RM09B</option><option value="pkg-RM07B">RM07B</option><option value="pkg-RM09">RM09</option><option value="pkg-RM04B">RM04B</option><option value="pkg-RM11">RM11</option><option value="pkg-RM11B">RM11B</option>
+        </select>
+        <div class="quick-links"><a href="#pkg-RM07">RM07</a><a href="#pkg-RM09B">RM09B</a><a href="#pkg-RM07B">RM07B</a><a href="#pkg-RM09">RM09</a><a href="#pkg-RM04B">RM04B</a><a href="#pkg-RM11">RM11</a><a href="#pkg-RM11B">RM11B</a></div>
+      </div>
+    </section>
+    <div class="grid">
+    <section class="card" id="pkg-RM07" data-package="RM07">
+      <div class="card-head">
+        <h2>RM07</h2>
+        <div class="badge down">ROI下跌</div>
+      </div>
+      <div class="subhead">2026-04-10 vs 2026-04-09</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6717 <span class="arrow">→</span> 0.6353</div><div class="roi-hero-delta">下跌 -5.42%</div></div>
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>2626.72 -> 2482.42</strong><em class="down">-5.49%</em></div>
+        <div class="metric"><span>Revenue</span><strong>1764.48 -> 1577.09</strong><em class="down">-10.62%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.1288 -> 0.1448</strong><em class="up">+12.40%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0865 -> 0.0920</strong><em class="up">+6.31%</em></div>
+        <div class="metric"><span>eCPM</span><strong>12.3036 -> 13.5317</strong><em class="up">+9.98%</em></div>
+        <div class="metric"><span>IPU</span><strong>7.0328 -> 6.7978</strong><em class="down">-3.34%</em></div>
+      </div>
+      <p class="primary">主因判断：CPI</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + facebook</td><td>485.25</td><td>19.5%</td><td><span class="down">0.7849 -> 0.7069</span></td><td><span class="up">CPI +11.01%</span></td></tr><tr><td>US + google</td><td>239.31</td><td>9.6%</td><td><span class="down">0.7119 -> 0.6076</span></td><td><span class="down">ARPU -9.06%，其中 IPU -25.74%</span></td></tr><tr><td>BR + google</td><td>286.21</td><td>11.5%</td><td><span class="down">0.7272 -> 0.6504</span></td><td><span class="up">CPI +9.52%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>KE + tiktok</td><td>26.34</td><td>1.1%</td><td><span class="up">0.5932 -> 0.6892</span></td><td><span class="up">ARPU +12.96%，其中 eCPM +16.86%</span></td></tr><tr><td>MX + facebook</td><td>113.62</td><td>4.6%</td><td><span class="up">0.6130 -> 0.6428</span></td><td><span class="down">CPI -6.77%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    
+    <section class="card" id="pkg-RM09B" data-package="RM09B">
+      <div class="card-head">
+        <h2>RM09B</h2>
+        <div class="badge down">ROI下跌</div>
+      </div>
+      <div class="subhead">2026-04-10 vs 2026-04-09</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6271 <span class="arrow">→</span> 0.5719</div><div class="roi-hero-delta">下跌 -8.81%</div></div>
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>1774.31 -> 1554.56</strong><em class="down">-12.39%</em></div>
+        <div class="metric"><span>Revenue</span><strong>1112.71 -> 889.06</strong><em class="down">-20.10%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.1564 -> 0.1600</strong><em class="up">+2.25%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0981 -> 0.0915</strong><em class="down">-6.76%</em></div>
+        <div class="metric"><span>eCPM</span><strong>11.9219 -> 11.2388</strong><em class="down">-5.73%</em></div>
+        <div class="metric"><span>IPU</span><strong>8.2291 -> 8.1393</strong><em class="down">-1.09%</em></div>
+      </div>
+      <p class="primary">主因判断：ARPU，其中更偏向 eCPM</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + facebook</td><td>446.84</td><td>28.7%</td><td><span class="down">0.6833 -> 0.6325</span></td><td><span class="down">ARPU -7.71%，其中 eCPM -7.99%</span></td></tr><tr><td>ID + facebook</td><td>198.71</td><td>12.8%</td><td><span class="down">0.6460 -> 0.5722</span></td><td><span class="up">CPI +6.21%</span></td></tr><tr><td>ID + google</td><td>80.36</td><td>5.2%</td><td><span class="down">0.7151 -> 0.5181</span></td><td><span class="down">ARPU -18.34%，其中 eCPM -13.04%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>BR + mtg</td><td>31.27</td><td>2.0%</td><td><span class="up">0.5094 -> 0.7070</span></td><td><span class="up">ARPU +32.70%，其中 eCPM +23.71%</span></td></tr><tr><td>MX + facebook</td><td>27.87</td><td>1.8%</td><td><span class="up">0.6456 -> 0.7492</span></td><td><span class="down">CPI -11.25%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    
+    <section class="card" id="pkg-RM07B" data-package="RM07B">
+      <div class="card-head">
+        <h2>RM07B</h2>
+        <div class="badge down">ROI下跌</div>
+      </div>
+      <div class="subhead">2026-04-10 vs 2026-04-09</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6369 <span class="arrow">→</span> 0.6317</div><div class="roi-hero-delta">下跌 -0.82%</div></div>
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>2538.75 -> 2223.35</strong><em class="down">-12.42%</em></div>
+        <div class="metric"><span>Revenue</span><strong>1616.81 -> 1404.39</strong><em class="down">-13.14%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.1415 -> 0.1412</strong><em class="down">-0.19%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0901 -> 0.0892</strong><em class="down">-1.00%</em></div>
+        <div class="metric"><span>eCPM</span><strong>13.2867 -> 14.3056</strong><em class="up">+7.67%</em></div>
+        <div class="metric"><span>IPU</span><strong>6.7826 -> 6.2362</strong><em class="down">-8.05%</em></div>
+      </div>
+      <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>MX + google</td><td>176.85</td><td>8.0%</td><td><span class="down">0.7067 -> 0.5058</span></td><td><span class="up">CPI +21.94%</span></td></tr><tr><td>BR + google</td><td>149.44</td><td>6.7%</td><td><span class="down">0.6087 -> 0.4706</span></td><td><span class="up">CPI +15.17%</span></td></tr><tr><td>MX + mtg</td><td>100.48</td><td>4.5%</td><td><span class="down">0.7576 -> 0.6747</span></td><td><span class="up">CPI +7.96%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + google</td><td>74.81</td><td>3.4%</td><td><span class="up">0.5058 -> 0.6885</span></td><td><span class="up">ARPU +44.75%，其中 eCPM +70.12%</span></td></tr><tr><td>ES + facebook</td><td>79.97</td><td>3.6%</td><td><span class="up">0.4991 -> 0.5953</span></td><td><span class="down">CPI -28.91%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    
+    <section class="card" id="pkg-RM09" data-package="RM09">
+      <div class="card-head">
+        <h2>RM09</h2>
+        <div class="badge up">ROI上涨</div>
+      </div>
+      <div class="subhead">2026-04-10 vs 2026-04-09</div>
+      <div class="roi-hero up"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.2334 <span class="arrow">→</span> 0.3959</div><div class="roi-hero-delta">上涨 +69.64%</div></div>
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>238.66 -> 699.35</strong><em class="up">+193.03%</em></div>
+        <div class="metric"><span>Revenue</span><strong>55.70 -> 276.90</strong><em class="up">+397.11%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.2448 -> 0.1583</strong><em class="down">-35.32%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0571 -> 0.0627</strong><em class="up">+9.73%</em></div>
+        <div class="metric"><span>eCPM</span><strong>8.7212 -> 9.1270</strong><em class="up">+4.65%</em></div>
+        <div class="metric"><span>IPU</span><strong>6.5508 -> 6.8687</strong><em class="up">+4.85%</em></div>
+      </div>
+      <p class="primary">主因判断：CPI</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + google</td><td>95.29</td><td>13.6%</td><td><span class="down">0.6583 -> 0.5103</span></td><td><span class="up">CPI +64.40%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>PH + facebook</td><td>77.07</td><td>11.0%</td><td><span class="up">0.1210 -> 0.3605</span></td><td><span class="down">CPI -66.21%</span></td></tr><tr><td>US + facebook</td><td>106.40</td><td>15.2%</td><td><span class="up">0.1567 -> 0.2820</span></td><td><span class="down">CPI -48.65%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    
+    <section class="card" id="pkg-RM04B" data-package="RM04B">
+      <div class="card-head">
+        <h2>RM04B</h2>
+        <div class="badge up">ROI上涨</div>
+      </div>
+      <div class="subhead">2026-04-10 vs 2026-04-09</div>
+      <div class="roi-hero up"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.2067 <span class="arrow">→</span> 0.3697</div><div class="roi-hero-delta">上涨 +78.88%</div></div>
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>533.84 -> 979.94</strong><em class="up">+83.56%</em></div>
+        <div class="metric"><span>Revenue</span><strong>110.34 -> 362.30</strong><em class="up">+228.35%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.2846 -> 0.1767</strong><em class="down">-37.91%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0588 -> 0.0653</strong><em class="up">+11.07%</em></div>
+        <div class="metric"><span>eCPM</span><strong>13.2714 -> 10.7754</strong><em class="down">-18.81%</em></div>
+        <div class="metric"><span>IPU</span><strong>4.4318 -> 6.0626</strong><em class="up">+36.80%</em></div>
+      </div>
+      <p class="primary">主因判断：CPI</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td colspan='5'>无</td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>BR + facebook</td><td>240.94</td><td>24.6%</td><td><span class="up">0.2335 -> 0.4092</span></td><td><span class="down">CPI -34.07%</span></td></tr><tr><td>BR + google</td><td>273.71</td><td>27.9%</td><td><span class="up">0.2086 -> 0.3360</span></td><td><span class="up">ARPU +32.25%，其中 IPU +35.42%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    
+    <section class="card" id="pkg-RM11" data-package="RM11">
+      <div class="card-head">
+        <h2>RM11</h2>
+        <div class="badge up">ROI上涨</div>
+      </div>
+      <div class="subhead">2026-04-10 vs 2026-04-09</div>
+      <div class="roi-hero up"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.7192 <span class="arrow">→</span> 0.7248</div><div class="roi-hero-delta">上涨 +0.78%</div></div>
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>3972.22 -> 3453.83</strong><em class="down">-13.05%</em></div>
+        <div class="metric"><span>Revenue</span><strong>2856.81 -> 2503.28</strong><em class="down">-12.38%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.1297 -> 0.1266</strong><em class="down">-2.44%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0933 -> 0.0917</strong><em class="down">-1.68%</em></div>
+        <div class="metric"><span>eCPM</span><strong>15.5355 -> 16.1153</strong><em class="up">+3.73%</em></div>
+        <div class="metric"><span>IPU</span><strong>6.0057 -> 5.6925</strong><em class="down">-5.22%</em></div>
+      </div>
+      <p class="primary">主因判断：CPI</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + facebook</td><td>783.92</td><td>22.7%</td><td><span class="down">0.8724 -> 0.8418</span></td><td><span class="down">ARPU -5.65%，其中 IPU -9.90%</span></td></tr><tr><td>MX + google</td><td>476.80</td><td>13.8%</td><td><span class="down">0.6878 -> 0.6382</span></td><td><span class="up">CPI +6.28%</span></td></tr><tr><td>ID + google</td><td>271.19</td><td>7.9%</td><td><span class="down">0.6101 -> 0.5662</span></td><td><span class="down">ARPU -6.53%，其中 IPU -9.76%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>HK + google</td><td>93.03</td><td>2.7%</td><td><span class="up">0.4771 -> 0.7632</span></td><td><span class="up">ARPU +32.36%，其中 eCPM +18.16%</span></td></tr><tr><td>ES + facebook</td><td>90.72</td><td>2.6%</td><td><span class="up">0.5717 -> 0.7761</span></td><td><span class="down">CPI -28.15%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    
+    <section class="card" id="pkg-RM11B" data-package="RM11B">
+      <div class="card-head">
+        <h2>RM11B</h2>
+        <div class="badge up">ROI上涨</div>
+      </div>
+      <div class="subhead">2026-04-10 vs 2026-04-09</div>
+      <div class="roi-hero up"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6820 <span class="arrow">→</span> 0.7656</div><div class="roi-hero-delta">上涨 +12.25%</div></div>
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>2761.06 -> 2104.32</strong><em class="down">-23.79%</em></div>
+        <div class="metric"><span>Revenue</span><strong>1883.13 -> 1611.09</strong><em class="down">-14.45%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.1195 -> 0.1208</strong><em class="up">+1.11%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0815 -> 0.0925</strong><em class="up">+13.50%</em></div>
+        <div class="metric"><span>eCPM</span><strong>21.4089 -> 26.5265</strong><em class="up">+23.90%</em></div>
+        <div class="metric"><span>IPU</span><strong>3.8070 -> 3.4873</strong><em class="down">-8.40%</em></div>
+      </div>
+      <p class="primary">主因判断：ARPU，其中更偏向 eCPM</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>PR + google</td><td>40.41</td><td>1.9%</td><td><span class="down">0.7698 -> 0.5884</span></td><td><span class="up">CPI +19.75%</span></td></tr><tr><td>MX + facebook</td><td>65.58</td><td>3.1%</td><td><span class="down">0.6132 -> 0.5027</span></td><td><span class="up">CPI +16.27%</span></td></tr><tr><td>ES + google</td><td>77.12</td><td>3.7%</td><td><span class="down">0.6600 -> 0.6007</span></td><td><span class="up">CPI +7.45%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + facebook</td><td>660.48</td><td>31.4%</td><td><span class="up">0.7415 -> 0.8920</span></td><td><span class="down">CPI -12.63%</span></td></tr><tr><td>ID + google</td><td>143.95</td><td>6.8%</td><td><span class="up">0.5008 -> 0.6160</span></td><td><span class="down">CPI -14.41%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    </div>
+  </div>
+  <script>
+    const jump = document.getElementById('package-jump');
+    if (jump) {
+      jump.addEventListener('change', (event) => {
+        const targetId = event.target.value;
+        if (!targetId) return;
+        const el = document.getElementById(targetId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  </script>
+</body>
+</html>
