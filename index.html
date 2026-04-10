@@ -30,6 +30,58 @@
       width: min(1280px, calc(100% - 32px));
       margin: 32px auto 48px;
     }
+    .gate {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .gate-card {
+      width: min(420px, 100%);
+      background: var(--paper);
+      border: 1px solid rgba(216,207,194,0.9);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .gate-title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .gate-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .gate-card input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    .gate-card button {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .gate-hint {
+      min-height: 20px;
+      margin-top: 12px;
+      color: var(--down);
+      font-size: 13px;
+    }
     .hero {
       background: linear-gradient(135deg, rgba(201,124,93,0.14), rgba(33,104,105,0.10)), var(--paper);
       border: 1px solid rgba(216,207,194,0.9);
@@ -182,10 +234,19 @@
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="gate" id="password-gate">
+    <div class="gate-card">
+      <div class="gate-title">报告访问验证</div>
+      <div class="gate-subtitle">请输入访问密码后查看页面内容</div>
+      <input id="password-input" type="password" placeholder="请输入密码" />
+      <button id="password-submit">进入报告</button>
+      <div class="gate-hint" id="password-hint"></div>
+    </div>
+  </div>
+  <div class="wrap" id="report-wrap" style="display:none;">
     <section class="hero">
       <h1>项目日表现汇总</h1>
-      <div class="meta">生成时间：2026-04-11 00:10:12 | 数据源：C:\Users\Administrator\Desktop\codex\0324\outputs\bi_merge_cleaning\merged_cleaned_adjust_cohort__2026-04-01_to_2026-04-10.csv</div>
+      <div class="meta">生成时间：2026-04-11 00:22:14 | 数据源：C:\Users\Administrator\Desktop\codex\0324\outputs\bi_merge_cleaning\merged_cleaned_adjust_cohort__2026-04-01_to_2026-04-10.csv</div>
       <div class="toolbar">
         <label for="package-jump">快速定位项目</label>
         <select id="package-jump">
@@ -436,6 +497,30 @@
     </div>
   </div>
   <script>
+    const expectedPassword = "fafafa";
+    const gate = document.getElementById('password-gate');
+    const wrap = document.getElementById('report-wrap');
+    const input = document.getElementById('password-input');
+    const submit = document.getElementById('password-submit');
+    const hint = document.getElementById('password-hint');
+    const unlock = () => {
+      if (input.value === expectedPassword) {
+        gate.style.display = 'none';
+        wrap.style.display = 'block';
+        sessionStorage.setItem('report-password-ok', '1');
+        hint.textContent = '';
+      } else {
+        hint.textContent = '密码错误，请重试。';
+      }
+    };
+    if (sessionStorage.getItem('report-password-ok') === '1') {
+      gate.style.display = 'none';
+      wrap.style.display = 'block';
+    }
+    submit.addEventListener('click', unlock);
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') unlock();
+    });
     const jump = document.getElementById('package-jump');
     if (jump) {
       jump.addEventListener('change', (event) => {
