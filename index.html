@@ -15,6 +15,9 @@
       --down: #b23a48;
       --flat: #7a6d61;
       --accent: #c97c5d;
+      --warn-bg: #fff3d9;
+      --warn-line: #efc66b;
+      --warn-ink: #7b5610;
       --shadow: 0 14px 40px rgba(54, 38, 26, 0.10);
     }
     * { box-sizing: border-box; }
@@ -40,18 +43,17 @@
     .gate-card {
       width: min(420px, 100%);
       background: var(--paper);
-      border: 1px solid rgba(216,207,194,0.9);
+      border: 1px solid var(--line);
       border-radius: 24px;
       padding: 28px;
       box-shadow: var(--shadow);
     }
     .gate-title {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 800;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .gate-subtitle {
-      font-size: 14px;
       color: var(--muted);
       margin-bottom: 18px;
     }
@@ -152,6 +154,61 @@
       gap: 12px;
       margin-bottom: 16px;
     }
+    .chart-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.78);
+      padding: 14px 14px 10px;
+      margin-top: 16px;
+    }
+    .chart-title {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .chart-legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      border-radius: 999px;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+    .legend-dot.retention { background: #c97c5d; }
+    .legend-dot.roi { background: #216869; }
+    .chart-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .chart-grid {
+      stroke: rgba(216,207,194,0.8);
+      stroke-width: 1;
+    }
+    .chart-axis-label {
+      fill: var(--muted);
+      font-size: 10px;
+    }
+    .chart-value {
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .chart-value.retention { fill: #9f5c41; }
+    .chart-value.roi { fill: #216869; }
+    .chart-empty {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 18px 4px 10px;
+    }
     .roi-hero {
       border-radius: 22px;
       padding: 22px 24px;
@@ -190,6 +247,24 @@
     .roi-hero-delta {
       font-size: 18px;
       font-weight: 700;
+    }
+    .alert {
+      margin-bottom: 16px;
+      border: 1px solid var(--warn-line);
+      border-radius: 16px;
+      background: var(--warn-bg);
+      padding: 14px 16px;
+    }
+    .alert-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--warn-ink);
+      margin-bottom: 6px;
+    }
+    .alert-body {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #6e5118;
     }
     .metric {
       border: 1px solid var(--line);
@@ -246,7 +321,7 @@
   <div class="wrap" id="report-wrap" style="display:none;">
     <section class="hero">
       <h1>项目日表现汇总</h1>
-      <div class="meta">生成时间：2026-04-14 15:14:24 | 数据源：C:\Users\Administrator\Desktop\codex\0324\outputs\bi_merge_cleaning\merged_cleaned_adjust_cohort__2026-04-08_to_2026-04-14.csv</div>
+      <div class="meta">生成时间：2026-04-15 11:35:48 | 数据源：C:\Users\Administrator\Desktop\codex\0324\outputs\bi_merge_cleaning\merged_cleaned_adjust_cohort__2026-04-09_to_2026-04-15.csv</div>
       <div class="toolbar">
         <label for="package-jump">快速定位项目</label>
         <select id="package-jump">
@@ -260,323 +335,18 @@
     <section class="card" id="pkg-RM07" data-package="RM07">
       <div class="card-head">
         <h2>RM07</h2>
-        <div class="badge down">ROI下跌</div>
-      </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6416 <span class="arrow">→</span> 0.5846</div><div class="roi-hero-delta">下跌 -8.87%</div></div>
-      <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>3451.56 -> 2233.85</strong><em class="down">-35.28%</em></div>
-        <div class="metric"><span>Revenue</span><strong>2214.37 -> 1306.01</strong><em class="down">-41.02%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.1428 -> 0.1495</strong><em class="up">+4.70%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.0916 -> 0.0874</strong><em class="down">-4.58%</em></div>
-        <div class="metric"><span>eCPM</span><strong>13.0403 -> 12.9530</strong><em class="down">-0.67%</em></div>
-        <div class="metric"><span>IPU</span><strong>7.0233 -> 6.7465</strong><em class="down">-3.94%</em></div>
-      </div>
-      <p class="primary">主因判断：CPI</p>
-      <div class="tables">
-        <div class="table-wrap">
-          <h3>主要拖累项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + facebook</td><td>498.88</td><td>22.3%</td><td><span class="down">0.7394 -> 0.5894</span></td><td><span class="up">CPI +12.94%</span></td></tr><tr><td>MX + google</td><td>433.07</td><td>19.4%</td><td><span class="down">0.5847 -> 0.4946</span></td><td><span class="down">ARPU -20.08%，其中 eCPM -12.64%</span></td></tr><tr><td>BR + facebook</td><td>59.63</td><td>2.7%</td><td><span class="down">0.4886 -> 0.3941</span></td><td><span class="down">ARPU -11.50%，其中 IPU -6.57%</span></td></tr></tbody>
-          </table>
-        </div>
-        <div class="table-wrap">
-          <h3>主要对冲项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>BR + google</td><td>279.20</td><td>12.5%</td><td><span class="up">0.6447 -> 0.6652</span></td><td><span class="down">CPI -16.05%</span></td></tr><tr><td>US + google</td><td>272.83</td><td>12.2%</td><td><span class="up">0.6285 -> 0.6666</span></td><td><span class="up">ARPU +6.38%，其中 IPU +6.41%</span></td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    
-    <section class="card" id="pkg-RM09B" data-package="RM09B">
-      <div class="card-head">
-        <h2>RM09B</h2>
-        <div class="badge down">ROI下跌</div>
-      </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6376 <span class="arrow">→</span> 0.5905</div><div class="roi-hero-delta">下跌 -7.40%</div></div>
-      <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>1516.05 -> 1052.21</strong><em class="down">-30.60%</em></div>
-        <div class="metric"><span>Revenue</span><strong>966.69 -> 621.29</strong><em class="down">-35.73%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.1453 -> 0.1512</strong><em class="up">+4.04%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.0927 -> 0.0893</strong><em class="down">-3.66%</em></div>
-        <div class="metric"><span>eCPM</span><strong>11.1891 -> 11.7756</strong><em class="up">+5.24%</em></div>
-        <div class="metric"><span>IPU</span><strong>8.2818 -> 7.5817</strong><em class="down">-8.45%</em></div>
-      </div>
-      <p class="primary">主因判断：CPI</p>
-      <div class="tables">
-        <div class="table-wrap">
-          <h3>主要拖累项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + facebook</td><td>231.40</td><td>22.0%</td><td><span class="down">0.7220 -> 0.5912</span></td><td><span class="down">ARPU -14.95%，其中 eCPM -25.80%</span></td></tr><tr><td>MX + google</td><td>182.91</td><td>17.4%</td><td><span class="down">0.6165 -> 0.5882</span></td><td><span class="down">ARPU -5.49%，其中 IPU -14.39%</span></td></tr><tr><td>ID + google</td><td>63.59</td><td>6.0%</td><td><span class="down">0.6584 -> 0.5876</span></td><td><span class="down">ARPU -12.51%，其中 IPU -21.68%</span></td></tr></tbody>
-          </table>
-        </div>
-        <div class="table-wrap">
-          <h3>主要对冲项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>ID + facebook</td><td>112.16</td><td>10.7%</td><td><span class="up">0.6410 -> 0.6898</span></td><td><span class="up">ARPU +6.42%，其中 eCPM +20.00%</span></td></tr><tr><td>NG + google</td><td>32.92</td><td>3.1%</td><td><span class="up">0.5014 -> 0.5795</span></td><td><span class="up">ARPU +23.28%，其中 IPU +20.60%</span></td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    
-    <section class="card" id="pkg-RM07B" data-package="RM07B">
-      <div class="card-head">
-        <h2>RM07B</h2>
         <div class="badge up">ROI上涨</div>
       </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero up"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6239 <span class="arrow">→</span> 0.6334</div><div class="roi-hero-delta">上涨 +1.53%</div></div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero up"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.5938 <span class="arrow">→</span> 0.6122</div><div class="roi-hero-delta">上涨 +3.10%</div></div>
+      
       <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>2211.28 -> 1348.87</strong><em class="down">-39.00%</em></div>
-        <div class="metric"><span>Revenue</span><strong>1379.65 -> 854.43</strong><em class="down">-38.07%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.1304 -> 0.1266</strong><em class="down">-2.87%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.0813 -> 0.0802</strong><em class="down">-1.39%</em></div>
-        <div class="metric"><span>eCPM</span><strong>12.2964 -> 12.0062</strong><em class="down">-2.36%</em></div>
-        <div class="metric"><span>IPU</span><strong>6.6143 -> 6.6804</strong><em class="up">+1.00%</em></div>
-      </div>
-      <p class="primary">主因判断：CPI</p>
-      <div class="tables">
-        <div class="table-wrap">
-          <h3>主要拖累项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>MX + facebook</td><td>157.70</td><td>11.7%</td><td><span class="down">0.7084 -> 0.6415</span></td><td><span class="up">CPI +6.43%</span></td></tr><tr><td>BR + tiktok</td><td>35.30</td><td>2.6%</td><td><span class="down">0.6744 -> 0.5193</span></td><td><span class="down">ARPU -22.77%，其中 eCPM -23.16%</span></td></tr><tr><td>CO + google</td><td>44.66</td><td>3.3%</td><td><span class="down">0.7192 -> 0.5657</span></td><td><span class="up">CPI +23.22%</span></td></tr></tbody>
-          </table>
-        </div>
-        <div class="table-wrap">
-          <h3>主要对冲项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>ES + facebook</td><td>48.62</td><td>3.6%</td><td><span class="up">0.4522 -> 0.6025</span></td><td><span class="up">ARPU +24.59%，其中 IPU +14.36%</span></td></tr><tr><td>ID + google</td><td>25.81</td><td>1.9%</td><td><span class="up">0.4902 -> 0.6854</span></td><td><span class="up">ARPU +31.02%，其中 eCPM +30.73%</span></td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    
-    <section class="card" id="pkg-RM09" data-package="RM09">
-      <div class="card-head">
-        <h2>RM09</h2>
-        <div class="badge down">ROI下跌</div>
-      </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6360 <span class="arrow">→</span> 0.6231</div><div class="roi-hero-delta">下跌 -2.02%</div></div>
-      <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>556.28 -> 270.53</strong><em class="down">-51.37%</em></div>
-        <div class="metric"><span>Revenue</span><strong>353.78 -> 168.58</strong><em class="down">-52.35%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.1206 -> 0.1239</strong><em class="up">+2.72%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.0767 -> 0.0772</strong><em class="up">+0.65%</em></div>
-        <div class="metric"><span>eCPM</span><strong>10.7654 -> 11.8758</strong><em class="up">+10.32%</em></div>
-        <div class="metric"><span>IPU</span><strong>7.1240 -> 6.4995</strong><em class="down">-8.77%</em></div>
-      </div>
-      <p class="primary">主因判断：CPI</p>
-      <div class="tables">
-        <div class="table-wrap">
-          <h3>主要拖累项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + facebook</td><td>36.44</td><td>13.5%</td><td><span class="down">0.6293 -> 0.5165</span></td><td><span class="down">ARPU -19.73%，其中 IPU -38.83%</span></td></tr><tr><td>US + google</td><td>62.86</td><td>23.2%</td><td><span class="down">0.6276 -> 0.5829</span></td><td><span class="down">ARPU -7.96%，其中 IPU -10.84%</span></td></tr><tr><td>NG + google</td><td>8.75</td><td>3.2%</td><td><span class="down">0.8894 -> 0.6384</span></td><td><span class="down">ARPU -37.31%，其中 eCPM -40.87%</span></td></tr></tbody>
-          </table>
-        </div>
-        <div class="table-wrap">
-          <h3>主要对冲项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>PE + google</td><td>5.55</td><td>2.1%</td><td><span class="up">0.6473 -> 1.1597</span></td><td><span class="down">CPI -29.99%</span></td></tr><tr><td>MX + facebook</td><td>22.19</td><td>8.2%</td><td><span class="up">0.5678 -> 0.7124</span></td><td><span class="down">CPI -15.99%</span></td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    
-    <section class="card" id="pkg-RM04B" data-package="RM04B">
-      <div class="card-head">
-        <h2>RM04B</h2>
-        <div class="badge down">ROI下跌</div>
-      </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6309 <span class="arrow">→</span> 0.5896</div><div class="roi-hero-delta">下跌 -6.55%</div></div>
-      <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>534.33 -> 357.38</strong><em class="down">-33.12%</em></div>
-        <div class="metric"><span>Revenue</span><strong>337.13 -> 210.71</strong><em class="down">-37.50%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.1339 -> 0.1398</strong><em class="up">+4.37%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.0845 -> 0.0824</strong><em class="down">-2.47%</em></div>
-        <div class="metric"><span>eCPM</span><strong>12.4978 -> 13.9314</strong><em class="up">+11.47%</em></div>
-        <div class="metric"><span>IPU</span><strong>6.7607 -> 5.9151</strong><em class="down">-12.51%</em></div>
-      </div>
-      <p class="primary">主因判断：CPI</p>
-      <div class="tables">
-        <div class="table-wrap">
-          <h3>主要拖累项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>BR + google</td><td>155.56</td><td>43.5%</td><td><span class="down">0.5736 -> 0.5300</span></td><td><span class="up">CPI +8.78%</span></td></tr><tr><td>MX + facebook</td><td>7.99</td><td>2.2%</td><td><span class="down">1.0526 -> 0.5350</span></td><td><span class="down">ARPU -44.22%，其中 IPU -32.30%</span></td></tr><tr><td>MX + google</td><td>21.23</td><td>5.9%</td><td><span class="down">0.7420 -> 0.5770</span></td><td><span class="down">ARPU -26.46%，其中 IPU -19.50%</span></td></tr></tbody>
-          </table>
-        </div>
-        <div class="table-wrap">
-          <h3>主要对冲项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>ID + google</td><td>11.01</td><td>3.1%</td><td><span class="up">0.4324 -> 0.5149</span></td><td><span class="down">CPI -24.00%</span></td></tr><tr><td>BR + tiktok</td><td>27.93</td><td>7.8%</td><td><span class="up">0.6033 -> 0.6668</span></td><td><span class="down">CPI -12.37%</span></td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    
-    <section class="card" id="pkg-RM11" data-package="RM11">
-      <div class="card-head">
-        <h2>RM11</h2>
-        <div class="badge down">ROI下跌</div>
-      </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.7018 <span class="arrow">→</span> 0.6711</div><div class="roi-hero-delta">下跌 -4.37%</div></div>
-      <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>4198.92 -> 3185.69</strong><em class="down">-24.13%</em></div>
-        <div class="metric"><span>Revenue</span><strong>2946.63 -> 2137.96</strong><em class="down">-27.44%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.1360 -> 0.1319</strong><em class="down">-3.04%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.0955 -> 0.0885</strong><em class="down">-7.27%</em></div>
-        <div class="metric"><span>eCPM</span><strong>15.4156 -> 15.3824</strong><em class="down">-0.22%</em></div>
-        <div class="metric"><span>IPU</span><strong>6.1930 -> 5.7549</strong><em class="down">-7.07%</em></div>
-      </div>
-      <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
-      <div class="tables">
-        <div class="table-wrap">
-          <h3>主要拖累项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>SV + google</td><td>108.18</td><td>3.4%</td><td><span class="down">1.3042 -> 0.4425</span></td><td><span class="down">ARPU -60.00%，其中 eCPM -56.24%</span></td></tr><tr><td>MX + google</td><td>536.46</td><td>16.8%</td><td><span class="down">0.6868 -> 0.6284</span></td><td><span class="down">ARPU -7.83%，其中 IPU -14.27%</span></td></tr><tr><td>US + facebook</td><td>750.87</td><td>23.6%</td><td><span class="down">0.7908 -> 0.7709</span></td><td><span class="up">CPI +2.16%</span></td></tr></tbody>
-          </table>
-        </div>
-        <div class="table-wrap">
-          <h3>主要对冲项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>ID + mtg</td><td>24.66</td><td>0.8%</td><td><span class="up">0.6869 -> 0.9776</span></td><td><span class="down">CPI -30.23%</span></td></tr><tr><td>ES + mtg</td><td>27.46</td><td>0.9%</td><td><span class="up">0.5099 -> 0.8538</span></td><td><span class="up">ARPU +45.58%，其中 eCPM +53.99%</span></td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    
-    <section class="card" id="pkg-RM11B" data-package="RM11B">
-      <div class="card-head">
-        <h2>RM11B</h2>
-        <div class="badge down">ROI下跌</div>
-      </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6608 <span class="arrow">→</span> 0.6297</div><div class="roi-hero-delta">下跌 -4.70%</div></div>
-      <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>2917.85 -> 2162.69</strong><em class="down">-25.88%</em></div>
-        <div class="metric"><span>Revenue</span><strong>1927.97 -> 1361.80</strong><em class="down">-29.37%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.1194 -> 0.1166</strong><em class="down">-2.31%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.0789 -> 0.0734</strong><em class="down">-6.90%</em></div>
-        <div class="metric"><span>eCPM</span><strong>21.8104 -> 21.3720</strong><em class="down">-2.01%</em></div>
-        <div class="metric"><span>IPU</span><strong>3.6168 -> 3.4361</strong><em class="down">-4.99%</em></div>
-      </div>
-      <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
-      <div class="tables">
-        <div class="table-wrap">
-          <h3>主要拖累项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>SV + google</td><td>71.86</td><td>3.3%</td><td><span class="down">1.2088 -> 0.5266</span></td><td><span class="down">ARPU -51.60%，其中 eCPM -48.75%</span></td></tr><tr><td>MX + google</td><td>259.05</td><td>12.0%</td><td><span class="down">0.7764 -> 0.6729</span></td><td><span class="up">CPI +12.29%</span></td></tr><tr><td>BR + google</td><td>151.16</td><td>7.0%</td><td><span class="down">0.6182 -> 0.5387</span></td><td><span class="down">ARPU -11.71%，其中 IPU -8.59%</span></td></tr></tbody>
-          </table>
-        </div>
-        <div class="table-wrap">
-          <h3>主要对冲项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>ID + google</td><td>162.63</td><td>7.5%</td><td><span class="up">0.4800 -> 0.5658</span></td><td><span class="up">ARPU +11.84%，其中 eCPM +16.51%</span></td></tr><tr><td>BR + facebook</td><td>57.05</td><td>2.6%</td><td><span class="up">0.1869 -> 0.3311</span></td><td><span class="down">CPI -31.56%</span></td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    
-    <section class="card" id="pkg-R305B" data-package="R305B">
-      <div class="card-head">
-        <h2>R305B</h2>
-        <div class="badge down">ROI下跌</div>
-      </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.5700 <span class="arrow">→</span> 0.4873</div><div class="roi-hero-delta">下跌 -14.52%</div></div>
-      <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>9451.65 -> 5973.35</strong><em class="down">-36.80%</em></div>
-        <div class="metric"><span>Revenue</span><strong>5387.59 -> 2910.66</strong><em class="down">-45.97%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.7121 -> 1.0142</strong><em class="up">+42.42%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.4059 -> 0.4942</strong><em class="up">+21.74%</em></div>
-        <div class="metric"><span>eCPM</span><strong>56.9519 -> 78.1196</strong><em class="up">+37.17%</em></div>
-        <div class="metric"><span>IPU</span><strong>7.1272 -> 6.3258</strong><em class="down">-11.24%</em></div>
-      </div>
-      <p class="primary">主因判断：CPI</p>
-      <div class="tables">
-        <div class="table-wrap">
-          <h3>主要拖累项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + google</td><td>4734.20</td><td>79.3%</td><td><span class="down">0.6110 -> 0.4872</span></td><td><span class="down">ARPU -23.95%，其中 IPU -26.41%</span></td></tr><tr><td>CA + google</td><td>71.02</td><td>1.2%</td><td><span class="down">0.7511 -> 0.6044</span></td><td><span class="down">ARPU -25.91%，其中 eCPM -34.33%</span></td></tr><tr><td>GB + google</td><td>45.84</td><td>0.8%</td><td><span class="down">0.8183 -> 0.6124</span></td><td><span class="down">ARPU -36.40%，其中 eCPM -30.16%</span></td></tr></tbody>
-          </table>
-        </div>
-        <div class="table-wrap">
-          <h3>主要对冲项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>FR + google</td><td>66.21</td><td>1.1%</td><td><span class="up">0.3722 -> 0.5483</span></td><td><span class="up">ARPU +23.12%，其中 IPU +30.95%</span></td></tr><tr><td>JP + google</td><td>259.70</td><td>4.3%</td><td><span class="up">0.4216 -> 0.4500</span></td><td><span class="down">CPI -11.44%</span></td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    
-    <section class="card" id="pkg-R305C" data-package="R305C">
-      <div class="card-head">
-        <h2>R305C</h2>
-        <div class="badge down">ROI下跌</div>
-      </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.5585 <span class="arrow">→</span> 0.5303</div><div class="roi-hero-delta">下跌 -5.05%</div></div>
-      <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>10367.55 -> 5927.54</strong><em class="down">-42.83%</em></div>
-        <div class="metric"><span>Revenue</span><strong>5790.17 -> 3143.17</strong><em class="down">-45.72%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.6554 -> 0.5928</strong><em class="down">-9.56%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.3660 -> 0.3143</strong><em class="down">-14.13%</em></div>
-        <div class="metric"><span>eCPM</span><strong>57.6440 -> 55.0853</strong><em class="down">-4.44%</em></div>
-        <div class="metric"><span>IPU</span><strong>6.3498 -> 5.7060</strong><em class="down">-10.14%</em></div>
-      </div>
-      <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
-      <div class="tables">
-        <div class="table-wrap">
-          <h3>主要拖累项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + google</td><td>1619.16</td><td>27.3%</td><td><span class="down">0.5411 -> 0.4922</span></td><td><span class="down">ARPU -16.63%，其中 IPU -13.81%</span></td></tr><tr><td>DE + google</td><td>335.19</td><td>5.7%</td><td><span class="down">0.4598 -> 0.3519</span></td><td><span class="down">ARPU -30.20%，其中 IPU -25.82%</span></td></tr><tr><td>JP + google</td><td>2231.37</td><td>37.6%</td><td><span class="down">0.5426 -> 0.5311</span></td><td><span class="down">ARPU -8.03%，其中 eCPM -4.66%</span></td></tr></tbody>
-          </table>
-        </div>
-        <div class="table-wrap">
-          <h3>主要对冲项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>ES + google</td><td>156.49</td><td>2.6%</td><td><span class="up">0.4124 -> 0.6007</span></td><td><span class="up">ARPU +36.84%，其中 eCPM +21.02%</span></td></tr><tr><td>AU + google</td><td>57.98</td><td>1.0%</td><td><span class="up">0.4360 -> 0.6590</span></td><td><span class="down">CPI -22.55%</span></td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    
-    <section class="card" id="pkg-R307B" data-package="R307B">
-      <div class="card-head">
-        <h2>R307B</h2>
-        <div class="badge down">ROI下跌</div>
-      </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.7270 <span class="arrow">→</span> 0.5350</div><div class="roi-hero-delta">下跌 -26.42%</div></div>
-      <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>1043.19 -> 942.46</strong><em class="down">-9.66%</em></div>
-        <div class="metric"><span>Revenue</span><strong>758.42 -> 504.18</strong><em class="down">-33.52%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.4415 -> 0.3973</strong><em class="down">-10.00%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.3210 -> 0.2126</strong><em class="down">-33.77%</em></div>
-        <div class="metric"><span>eCPM</span><strong>72.9456 -> 52.3656</strong><em class="down">-28.21%</em></div>
-        <div class="metric"><span>IPU</span><strong>4.3999 -> 4.0590</strong><em class="down">-7.75%</em></div>
+        <div class="metric"><span>Spend</span><strong>3378.82 -> 1730.38</strong><em class="down">-48.79%</em></div>
+        <div class="metric"><span>Revenue</span><strong>2006.35 -> 1059.33</strong><em class="down">-47.20%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.1534 -> 0.1610</strong><em class="up">+4.99%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0911 -> 0.0986</strong><em class="up">+8.24%</em></div>
+        <div class="metric"><span>eCPM</span><strong>12.5784 -> 13.6661</strong><em class="up">+8.65%</em></div>
+        <div class="metric"><span>IPU</span><strong>7.2405 -> 7.2134</strong><em class="down">-0.37%</em></div>
       </div>
       <p class="primary">主因判断：ARPU，其中更偏向 eCPM</p>
       <div class="tables">
@@ -584,17 +354,342 @@
           <h3>主要拖累项</h3>
           <table>
             <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + facebook</td><td>307.11</td><td>32.6%</td><td><span class="down">0.8339 -> 0.5252</span></td><td><span class="down">ARPU -32.55%，其中 eCPM -26.78%</span></td></tr><tr><td>BR + facebook</td><td>84.85</td><td>9.0%</td><td><span class="down">1.1560 -> 0.5746</span></td><td><span class="up">CPI +42.94%</span></td></tr><tr><td>ES + facebook</td><td>32.29</td><td>3.4%</td><td><span class="down">0.5719 -> 0.2728</span></td><td><span class="down">ARPU -50.15%，其中 eCPM -33.68%</span></td></tr></tbody>
+            <tbody><tr><td>BR + google</td><td>261.58</td><td>15.1%</td><td><span class="down">0.7248 -> 0.6486</span></td><td><span class="up">CPI +7.30%</span></td></tr><tr><td>ES + google</td><td>31.77</td><td>1.8%</td><td><span class="down">0.6764 -> 0.5591</span></td><td><span class="up">CPI +18.80%</span></td></tr><tr><td>US + google</td><td>224.33</td><td>13.0%</td><td><span class="down">0.6872 -> 0.6694</span></td><td><span class="up">CPI +15.94%</span></td></tr></tbody>
           </table>
         </div>
         <div class="table-wrap">
           <h3>主要对冲项</h3>
           <table>
             <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + tiktok</td><td>52.06</td><td>5.5%</td><td><span class="up">0.5805 -> 0.6921</span></td><td><span class="up">ARPU +9.10%，其中 eCPM +7.48%</span></td></tr><tr><td>TR + facebook</td><td>21.64</td><td>2.3%</td><td><span class="up">0.4840 -> 0.7658</span></td><td><span class="up">ARPU +57.10%，其中 eCPM +29.31%</span></td></tr></tbody>
+            <tbody><tr><td>US + facebook</td><td>398.65</td><td>23.0%</td><td><span class="up">0.5575 -> 0.6754</span></td><td><span class="down">CPI -20.50%</span></td></tr><tr><td>MX + mtg</td><td>56.00</td><td>3.2%</td><td><span class="up">0.6916 -> 0.7446</span></td><td><span class="up">ARPU +15.71%，其中 eCPM +8.71%</span></td></tr></tbody>
           </table>
         </div>
       </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">7.58%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">21.05%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">34.51%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,20.0 157.5,29.1 273.0,35.9 388.5,42.2 504.0,42.9" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,132.8 157.5,134.8 273.0,143.0 388.5,146.0 504.0,144.0" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="132.8" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="29.1" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="134.8" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="35.9" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="143.0" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="42.2" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="146.0" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="42.9" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="144.0" r="3.5" fill="#216869"></circle><text x="42.0" y="10.0" text-anchor="middle" class="chart-value retention">34.51%</text><text x="42.0" y="148.8" text-anchor="middle" class="chart-value roi">10.41%</text><text x="157.5" y="19.1" text-anchor="middle" class="chart-value retention">32.57%</text><text x="157.5" y="150.8" text-anchor="middle" class="chart-value roi">9.98%</text><text x="273.0" y="25.9" text-anchor="middle" class="chart-value retention">31.11%</text><text x="273.0" y="159.0" text-anchor="middle" class="chart-value roi">8.22%</text><text x="388.5" y="32.2" text-anchor="middle" class="chart-value retention">29.78%</text><text x="388.5" y="162.0" text-anchor="middle" class="chart-value roi">7.58%</text><text x="504.0" y="32.9" text-anchor="middle" class="chart-value retention">29.63%</text><text x="504.0" y="160.0" text-anchor="middle" class="chart-value roi">8.02%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
+    </section>
+    
+    <section class="card" id="pkg-RM09B" data-package="RM09B">
+      <div class="card-head">
+        <h2>RM09B</h2>
+        <div class="badge down">ROI下跌</div>
+      </div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6322 <span class="arrow">→</span> 0.5754</div><div class="roi-hero-delta">下跌 -8.98%</div></div>
+      
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>1479.50 -> 784.03</strong><em class="down">-47.01%</em></div>
+        <div class="metric"><span>Revenue</span><strong>935.30 -> 451.15</strong><em class="down">-51.76%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.1515 -> 0.1557</strong><em class="up">+2.77%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0958 -> 0.0896</strong><em class="down">-6.46%</em></div>
+        <div class="metric"><span>eCPM</span><strong>11.7943 -> 12.2467</strong><em class="up">+3.84%</em></div>
+        <div class="metric"><span>IPU</span><strong>8.1184 -> 7.3135</strong><em class="down">-9.92%</em></div>
+      </div>
+      <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>ZA + google</td><td>192.84</td><td>24.6%</td><td><span class="down">0.5832 -> 0.4753</span></td><td><span class="down">ARPU -17.13%，其中 IPU -15.87%</span></td></tr><tr><td>ID + facebook</td><td>83.59</td><td>10.7%</td><td><span class="down">0.6791 -> 0.6045</span></td><td><span class="up">CPI +11.85%</span></td></tr><tr><td>MX + google</td><td>119.28</td><td>15.2%</td><td><span class="down">0.6422 -> 0.5830</span></td><td><span class="down">ARPU -20.84%，其中 IPU -15.34%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + facebook</td><td>191.41</td><td>24.4%</td><td><span class="up">0.5892 -> 0.6002</span></td><td><span class="down">CPI -22.86%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">7.10%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">17.52%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">27.94%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,25.9 157.5,20.0 273.0,25.0 388.5,32.9 504.0,32.4" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,141.9 157.5,142.5 273.0,141.6 388.5,146.0 504.0,130.3" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="25.9" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="141.9" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="142.5" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="25.0" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="141.6" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="32.9" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="146.0" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="32.4" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="130.3" r="3.5" fill="#216869"></circle><text x="42.0" y="15.9" text-anchor="middle" class="chart-value retention">26.97%</text><text x="42.0" y="157.9" text-anchor="middle" class="chart-value roi">7.78%</text><text x="157.5" y="10.0" text-anchor="middle" class="chart-value retention">27.94%</text><text x="157.5" y="158.5" text-anchor="middle" class="chart-value roi">7.68%</text><text x="273.0" y="15.0" text-anchor="middle" class="chart-value retention">27.11%</text><text x="273.0" y="157.6" text-anchor="middle" class="chart-value roi">7.84%</text><text x="388.5" y="22.9" text-anchor="middle" class="chart-value retention">25.81%</text><text x="388.5" y="162.0" text-anchor="middle" class="chart-value roi">7.10%</text><text x="504.0" y="22.4" text-anchor="middle" class="chart-value retention">25.89%</text><text x="504.0" y="146.3" text-anchor="middle" class="chart-value roi">9.70%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
+    </section>
+    
+    <section class="card" id="pkg-RM07B" data-package="RM07B">
+      <div class="card-head">
+        <h2>RM07B</h2>
+        <div class="badge down">ROI下跌</div>
+      </div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6525 <span class="arrow">→</span> 0.5831</div><div class="roi-hero-delta">下跌 -10.63%</div></div>
+      
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>2105.47 -> 1184.18</strong><em class="down">-43.76%</em></div>
+        <div class="metric"><span>Revenue</span><strong>1373.82 -> 690.51</strong><em class="down">-49.74%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.1350 -> 0.1397</strong><em class="up">+3.45%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0881 -> 0.0814</strong><em class="down">-7.55%</em></div>
+        <div class="metric"><span>eCPM</span><strong>12.8504 -> 12.4904</strong><em class="down">-2.80%</em></div>
+        <div class="metric"><span>IPU</span><strong>6.8558 -> 6.5208</strong><em class="down">-4.89%</em></div>
+      </div>
+      <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>UA + google</td><td>92.15</td><td>7.8%</td><td><span class="down">0.6379 -> 0.4767</span></td><td><span class="up">CPI +27.79%</span></td></tr><tr><td>US + facebook</td><td>128.37</td><td>10.8%</td><td><span class="down">0.6213 -> 0.4461</span></td><td><span class="down">ARPU -19.93%，其中 eCPM -18.24%</span></td></tr><tr><td>MX + facebook</td><td>134.30</td><td>11.3%</td><td><span class="down">0.6840 -> 0.5791</span></td><td><span class="down">ARPU -12.39%，其中 eCPM -15.76%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>PE + google</td><td>20.42</td><td>1.7%</td><td><span class="up">0.5213 -> 0.5574</span></td><td><span class="down">CPI -18.20%</span></td></tr><tr><td>BR + facebook</td><td>50.90</td><td>4.3%</td><td><span class="up">0.7559 -> 0.7655</span></td><td><span class="up">ARPU +19.72%，其中 eCPM +18.65%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">6.79%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">18.69%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">30.59%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,20.0 157.5,29.4 273.0,27.8 388.5,30.5 504.0,26.0" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,140.0 157.5,139.4 273.0,142.8 388.5,146.0 504.0,138.3" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="140.0" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="29.4" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="139.4" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="27.8" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="142.8" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="30.5" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="146.0" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="26.0" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="138.3" r="3.5" fill="#216869"></circle><text x="42.0" y="10.0" text-anchor="middle" class="chart-value retention">30.59%</text><text x="42.0" y="156.0" text-anchor="middle" class="chart-value roi">7.92%</text><text x="157.5" y="19.4" text-anchor="middle" class="chart-value retention">28.82%</text><text x="157.5" y="155.4" text-anchor="middle" class="chart-value roi">8.03%</text><text x="273.0" y="17.8" text-anchor="middle" class="chart-value retention">29.12%</text><text x="273.0" y="158.8" text-anchor="middle" class="chart-value roi">7.40%</text><text x="388.5" y="20.5" text-anchor="middle" class="chart-value retention">28.60%</text><text x="388.5" y="162.0" text-anchor="middle" class="chart-value roi">6.79%</text><text x="504.0" y="16.0" text-anchor="middle" class="chart-value retention">29.47%</text><text x="504.0" y="154.3" text-anchor="middle" class="chart-value roi">8.24%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
+    </section>
+    
+    <section class="card" id="pkg-RM09" data-package="RM09">
+      <div class="card-head">
+        <h2>RM09</h2>
+        <div class="badge down">ROI下跌</div>
+      </div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6290 <span class="arrow">→</span> 0.6079</div><div class="roi-hero-delta">下跌 -3.35%</div></div>
+      
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>445.75 -> 169.45</strong><em class="down">-61.99%</em></div>
+        <div class="metric"><span>Revenue</span><strong>280.36 -> 103.01</strong><em class="down">-63.26%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.1199 -> 0.1271</strong><em class="up">+6.06%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0754 -> 0.0773</strong><em class="up">+2.51%</em></div>
+        <div class="metric"><span>eCPM</span><strong>10.4683 -> 12.8941</strong><em class="up">+23.17%</em></div>
+        <div class="metric"><span>IPU</span><strong>7.2014 -> 5.9932</strong><em class="down">-16.78%</em></div>
+      </div>
+      <p class="primary">主因判断：CPI</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + facebook</td><td>19.19</td><td>11.3%</td><td><span class="down">0.5106 -> 0.3188</span></td><td><span class="up">CPI +41.84%</span></td></tr><tr><td>PH + facebook</td><td>25.14</td><td>14.8%</td><td><span class="down">0.6940 -> 0.5752</span></td><td><span class="up">CPI +14.84%</span></td></tr><tr><td>KE + google</td><td>6.89</td><td>4.1%</td><td><span class="down">0.6691 -> 0.4234</span></td><td><span class="down">ARPU -38.45%，其中 IPU -42.67%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + google</td><td>40.51</td><td>23.9%</td><td><span class="up">0.6126 -> 0.7366</span></td><td><span class="down">CPI -20.74%</span></td></tr><tr><td>PE + facebook</td><td>8.04</td><td>4.7%</td><td><span class="up">0.7188 -> 1.0929</span></td><td><span class="down">CPI -27.73%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">4.89%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">20.21%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">35.52%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,20.0 157.5,54.4 273.0,53.6 388.5,62.0 504.0,57.3" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,146.0 157.5,142.0 273.0,136.7 388.5,140.4 504.0,132.1" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="146.0" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="54.4" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="142.0" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="53.6" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="136.7" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="62.0" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="140.4" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="57.3" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="132.1" r="3.5" fill="#216869"></circle><text x="42.0" y="10.0" text-anchor="middle" class="chart-value retention">35.52%</text><text x="42.0" y="162.0" text-anchor="middle" class="chart-value roi">4.89%</text><text x="157.5" y="44.4" text-anchor="middle" class="chart-value retention">27.15%</text><text x="157.5" y="158.0" text-anchor="middle" class="chart-value roi">5.86%</text><text x="273.0" y="43.6" text-anchor="middle" class="chart-value retention">27.35%</text><text x="273.0" y="152.7" text-anchor="middle" class="chart-value roi">7.14%</text><text x="388.5" y="52.0" text-anchor="middle" class="chart-value retention">25.32%</text><text x="388.5" y="156.4" text-anchor="middle" class="chart-value roi">6.25%</text><text x="504.0" y="47.3" text-anchor="middle" class="chart-value retention">26.46%</text><text x="504.0" y="148.1" text-anchor="middle" class="chart-value roi">8.26%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
+    </section>
+    
+    <section class="card" id="pkg-RM04B" data-package="RM04B">
+      <div class="card-head">
+        <h2>RM04B</h2>
+        <div class="badge up">ROI上涨</div>
+      </div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero up"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6312 <span class="arrow">→</span> 0.6391</div><div class="roi-hero-delta">上涨 +1.26%</div></div>
+      
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>567.43 -> 297.67</strong><em class="down">-47.54%</em></div>
+        <div class="metric"><span>Revenue</span><strong>358.14 -> 190.26</strong><em class="down">-46.88%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.1509 -> 0.1844</strong><em class="up">+22.21%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0953 -> 0.1179</strong><em class="up">+23.76%</em></div>
+        <div class="metric"><span>eCPM</span><strong>13.7906 -> 16.4980</strong><em class="up">+19.63%</em></div>
+        <div class="metric"><span>IPU</span><strong>6.9069 -> 7.1450</strong><em class="up">+3.45%</em></div>
+      </div>
+      <p class="primary">主因判断：ARPU，其中更偏向 eCPM</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>BR + tiktok</td><td>19.06</td><td>6.4%</td><td><span class="down">0.7784 -> 0.5177</span></td><td><span class="up">CPI +82.90%</span></td></tr><tr><td>US + facebook</td><td>80.71</td><td>27.1%</td><td><span class="down">0.7322 -> 0.6619</span></td><td><span class="down">ARPU -15.64%，其中 IPU -34.44%</span></td></tr><tr><td>ZA + tiktok</td><td>9.25</td><td>3.1%</td><td><span class="down">0.5115 -> 0.4509</span></td><td><span class="down">ARPU -8.65%，其中 IPU -28.73%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>BR + facebook</td><td>44.75</td><td>15.0%</td><td><span class="up">0.6239 -> 0.7283</span></td><td><span class="up">ARPU +49.47%，其中 eCPM +46.09%</span></td></tr><tr><td>MX + google</td><td>13.31</td><td>4.5%</td><td><span class="up">0.5943 -> 0.7838</span></td><td><span class="up">ARPU +54.87%，其中 IPU +39.12%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">5.36%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">22.12%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">38.89%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,20.0 157.5,58.9 273.0,52.9 388.5,58.5 504.0,53.3" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,146.0 157.5,145.6 273.0,138.1 388.5,139.7 504.0,132.4" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="146.0" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="58.9" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="145.6" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="52.9" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="138.1" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="58.5" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="139.7" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="53.3" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="132.4" r="3.5" fill="#216869"></circle><text x="42.0" y="10.0" text-anchor="middle" class="chart-value retention">38.89%</text><text x="42.0" y="162.0" text-anchor="middle" class="chart-value roi">5.36%</text><text x="157.5" y="48.9" text-anchor="middle" class="chart-value retention">28.53%</text><text x="157.5" y="161.6" text-anchor="middle" class="chart-value roi">5.47%</text><text x="273.0" y="42.9" text-anchor="middle" class="chart-value retention">30.12%</text><text x="273.0" y="154.1" text-anchor="middle" class="chart-value roi">7.45%</text><text x="388.5" y="48.5" text-anchor="middle" class="chart-value retention">28.64%</text><text x="388.5" y="155.7" text-anchor="middle" class="chart-value roi">7.03%</text><text x="504.0" y="43.3" text-anchor="middle" class="chart-value retention">30.02%</text><text x="504.0" y="148.4" text-anchor="middle" class="chart-value roi">8.98%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
+    </section>
+    
+    <section class="card" id="pkg-RM11" data-package="RM11">
+      <div class="card-head">
+        <h2>RM11</h2>
+        <div class="badge down">ROI下跌</div>
+      </div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6858 <span class="arrow">→</span> 0.5983</div><div class="roi-hero-delta">下跌 -12.76%</div></div>
+      
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>4553.69 -> 2869.55</strong><em class="down">-36.98%</em></div>
+        <div class="metric"><span>Revenue</span><strong>3122.79 -> 1716.78</strong><em class="down">-45.02%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.1363 -> 0.1332</strong><em class="down">-2.30%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0935 -> 0.0797</strong><em class="down">-14.76%</em></div>
+        <div class="metric"><span>eCPM</span><strong>15.0773 -> 15.1277</strong><em class="up">+0.33%</em></div>
+        <div class="metric"><span>IPU</span><strong>6.1989 -> 5.2662</strong><em class="down">-15.05%</em></div>
+      </div>
+      <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>MX + google</td><td>531.31</td><td>18.5%</td><td><span class="down">0.6606 -> 0.5689</span></td><td><span class="down">ARPU -19.36%，其中 IPU -14.49%</span></td></tr><tr><td>US + facebook</td><td>685.00</td><td>23.9%</td><td><span class="down">0.7659 -> 0.7125</span></td><td><span class="down">ARPU -9.67%，其中 IPU -8.86%</span></td></tr><tr><td>CO + google</td><td>137.71</td><td>4.8%</td><td><span class="down">0.8447 -> 0.6554</span></td><td><span class="down">ARPU -21.09%，其中 eCPM -11.66%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>HK + google</td><td>57.31</td><td>2.0%</td><td><span class="up">0.5407 -> 0.6732</span></td><td><span class="down">CPI -25.72%</span></td></tr><tr><td>MX + mtg</td><td>82.55</td><td>2.9%</td><td><span class="up">0.6476 -> 0.7035</span></td><td><span class="down">CPI -14.31%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">6.32%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">16.51%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">26.71%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,20.0 157.5,25.4 273.0,29.2 388.5,36.5 504.0,41.1" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,130.9 157.5,137.0 273.0,137.1 388.5,146.0 504.0,144.6" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="130.9" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="25.4" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="137.0" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="29.2" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="137.1" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="36.5" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="146.0" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="41.1" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="144.6" r="3.5" fill="#216869"></circle><text x="42.0" y="10.0" text-anchor="middle" class="chart-value retention">26.71%</text><text x="42.0" y="146.9" text-anchor="middle" class="chart-value roi">8.76%</text><text x="157.5" y="15.4" text-anchor="middle" class="chart-value retention">25.83%</text><text x="157.5" y="153.0" text-anchor="middle" class="chart-value roi">7.77%</text><text x="273.0" y="19.2" text-anchor="middle" class="chart-value retention">25.22%</text><text x="273.0" y="153.1" text-anchor="middle" class="chart-value roi">7.76%</text><text x="388.5" y="26.5" text-anchor="middle" class="chart-value retention">24.03%</text><text x="388.5" y="162.0" text-anchor="middle" class="chart-value roi">6.32%</text><text x="504.0" y="31.1" text-anchor="middle" class="chart-value retention">23.30%</text><text x="504.0" y="160.6" text-anchor="middle" class="chart-value roi">6.55%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
+    </section>
+    
+    <section class="card" id="pkg-RM11B" data-package="RM11B">
+      <div class="card-head">
+        <h2>RM11B</h2>
+        <div class="badge down">ROI下跌</div>
+      </div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6619 <span class="arrow">→</span> 0.6392</div><div class="roi-hero-delta">下跌 -3.43%</div></div>
+      <div class="alert"><div class="alert-title">完整数据提醒</div><div class='alert-body'>完整数据口径下，2026-04-11 -&gt; 2026-04-12 -&gt; 2026-04-13 D1留存率连续下滑（20.69% -&gt; 20.35% -&gt; 19.73%），次日ROI连续下滑（7.30% -&gt; 6.24% -&gt; 6.22%）。</div></div>
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>3208.99 -> 1825.68</strong><em class="down">-43.11%</em></div>
+        <div class="metric"><span>Revenue</span><strong>2123.96 -> 1166.99</strong><em class="down">-45.06%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.1192 -> 0.1191</strong><em class="down">-0.08%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.0789 -> 0.0761</strong><em class="down">-3.50%</em></div>
+        <div class="metric"><span>eCPM</span><strong>21.5224 -> 23.9348</strong><em class="up">+11.21%</em></div>
+        <div class="metric"><span>IPU</span><strong>3.6660 -> 3.1811</strong><em class="down">-13.23%</em></div>
+      </div>
+      <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + facebook</td><td>582.49</td><td>31.9%</td><td><span class="down">0.7340 -> 0.6901</span></td><td><span class="down">ARPU -7.33%，其中 IPU -6.55%</span></td></tr><tr><td>CO + google</td><td>78.26</td><td>4.3%</td><td><span class="down">0.7561 -> 0.6147</span></td><td><span class="down">ARPU -23.80%，其中 IPU -18.37%</span></td></tr><tr><td>SV + google</td><td>63.43</td><td>3.5%</td><td><span class="down">0.5376 -> 0.3353</span></td><td><span class="down">ARPU -32.57%，其中 IPU -23.58%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>MX + facebook</td><td>30.50</td><td>1.7%</td><td><span class="up">0.4549 -> 0.5881</span></td><td><span class="down">CPI -25.43%</span></td></tr><tr><td>MX + google</td><td>165.17</td><td>9.0%</td><td><span class="up">0.6780 -> 0.6983</span></td><td><span class="down">CPI -20.60%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">6.22%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">14.52%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">22.83%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,20.0 157.5,31.9 273.0,36.2 388.5,38.8 504.0,43.5" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,131.6 157.5,137.2 273.0,137.8 388.5,145.8 504.0,146.0" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="131.6" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="31.9" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="137.2" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="36.2" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="137.8" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="38.8" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="145.8" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="43.5" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="146.0" r="3.5" fill="#216869"></circle><text x="42.0" y="10.0" text-anchor="middle" class="chart-value retention">22.83%</text><text x="42.0" y="147.6" text-anchor="middle" class="chart-value roi">8.11%</text><text x="157.5" y="21.9" text-anchor="middle" class="chart-value retention">21.25%</text><text x="157.5" y="153.2" text-anchor="middle" class="chart-value roi">7.37%</text><text x="273.0" y="26.2" text-anchor="middle" class="chart-value retention">20.69%</text><text x="273.0" y="153.8" text-anchor="middle" class="chart-value roi">7.30%</text><text x="388.5" y="28.8" text-anchor="middle" class="chart-value retention">20.35%</text><text x="388.5" y="161.8" text-anchor="middle" class="chart-value roi">6.24%</text><text x="504.0" y="33.5" text-anchor="middle" class="chart-value retention">19.73%</text><text x="504.0" y="162.0" text-anchor="middle" class="chart-value roi">6.22%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
+    </section>
+    
+    <section class="card" id="pkg-R305B" data-package="R305B">
+      <div class="card-head">
+        <h2>R305B</h2>
+        <div class="badge down">ROI下跌</div>
+      </div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.5293 <span class="arrow">→</span> 0.4471</div><div class="roi-hero-delta">下跌 -15.53%</div></div>
+      
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>7911.42 -> 6216.49</strong><em class="down">-21.42%</em></div>
+        <div class="metric"><span>Revenue</span><strong>4187.60 -> 2779.36</strong><em class="down">-33.63%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.7057 -> 0.9094</strong><em class="up">+28.85%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.3736 -> 0.4066</strong><em class="up">+8.84%</em></div>
+        <div class="metric"><span>eCPM</span><strong>55.0978 -> 71.4048</strong><em class="up">+29.60%</em></div>
+        <div class="metric"><span>IPU</span><strong>6.7799 -> 5.6940</strong><em class="down">-16.02%</em></div>
+      </div>
+      <p class="primary">主因判断：CPI</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + google</td><td>4432.06</td><td>71.3%</td><td><span class="down">0.5605 -> 0.4697</span></td><td><span class="down">ARPU -11.89%，其中 IPU -17.37%</span></td></tr><tr><td>BR + google</td><td>220.58</td><td>3.5%</td><td><span class="down">0.5681 -> 0.4108</span></td><td><span class="down">ARPU -25.78%，其中 IPU -21.64%</span></td></tr><tr><td>JP + google</td><td>317.92</td><td>5.1%</td><td><span class="down">0.3856 -> 0.3309</span></td><td><span class="down">ARPU -11.58%，其中 IPU -20.78%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>UA + google</td><td>30.56</td><td>0.5%</td><td><span class="up">0.4133 -> 0.5579</span></td><td><span class="up">ARPU +40.18%，其中 eCPM +40.93%</span></td></tr><tr><td>DE + google</td><td>52.27</td><td>0.8%</td><td><span class="up">0.2794 -> 0.3403</span></td><td><span class="up">ARPU +13.97%，其中 eCPM +13.66%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">14.26%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">29.32%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">44.37%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,20.0 157.5,23.9 273.0,28.8 388.5,27.0 504.0,34.6" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,140.3 157.5,142.0 273.0,141.1 388.5,139.0 504.0,146.0" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="140.3" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="23.9" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="142.0" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="28.8" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="141.1" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="27.0" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="139.0" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="34.6" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="146.0" r="3.5" fill="#216869"></circle><text x="42.0" y="10.0" text-anchor="middle" class="chart-value retention">44.37%</text><text x="42.0" y="156.3" text-anchor="middle" class="chart-value roi">15.63%</text><text x="157.5" y="13.9" text-anchor="middle" class="chart-value retention">43.43%</text><text x="157.5" y="158.0" text-anchor="middle" class="chart-value roi">15.21%</text><text x="273.0" y="18.8" text-anchor="middle" class="chart-value retention">42.26%</text><text x="273.0" y="157.1" text-anchor="middle" class="chart-value roi">15.43%</text><text x="388.5" y="17.0" text-anchor="middle" class="chart-value retention">42.71%</text><text x="388.5" y="155.0" text-anchor="middle" class="chart-value roi">15.94%</text><text x="504.0" y="24.6" text-anchor="middle" class="chart-value retention">40.88%</text><text x="504.0" y="162.0" text-anchor="middle" class="chart-value roi">14.26%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
+    </section>
+    
+    <section class="card" id="pkg-R305C" data-package="R305C">
+      <div class="card-head">
+        <h2>R305C</h2>
+        <div class="badge down">ROI下跌</div>
+      </div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.5259 <span class="arrow">→</span> 0.4816</div><div class="roi-hero-delta">下跌 -8.41%</div></div>
+      
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>10334.16 -> 4438.83</strong><em class="down">-57.05%</em></div>
+        <div class="metric"><span>Revenue</span><strong>5434.28 -> 2137.89</strong><em class="down">-60.66%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.6493 -> 0.6220</strong><em class="down">-4.19%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.3414 -> 0.2996</strong><em class="down">-12.25%</em></div>
+        <div class="metric"><span>eCPM</span><strong>54.3792 -> 55.5498</strong><em class="up">+2.15%</em></div>
+        <div class="metric"><span>IPU</span><strong>6.2784 -> 5.3932</strong><em class="down">-14.10%</em></div>
+      </div>
+      <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>JP + google</td><td>1629.54</td><td>36.7%</td><td><span class="down">0.5045 -> 0.4472</span></td><td><span class="down">ARPU -15.07%，其中 IPU -24.52%</span></td></tr><tr><td>ES + google</td><td>131.25</td><td>3.0%</td><td><span class="down">0.5596 -> 0.3899</span></td><td><span class="down">ARPU -27.01%，其中 IPU -16.30%</span></td></tr><tr><td>CA + google</td><td>51.30</td><td>1.2%</td><td><span class="down">0.8085 -> 0.6236</span></td><td><span class="down">ARPU -42.44%，其中 eCPM -49.67%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>GB + google</td><td>93.64</td><td>2.1%</td><td><span class="up">0.4818 -> 0.6474</span></td><td><span class="up">ARPU +15.65%，其中 eCPM +23.48%</span></td></tr><tr><td>DE + google</td><td>264.30</td><td>6.0%</td><td><span class="up">0.3526 -> 0.3874</span></td><td><span class="up">ARPU +6.52%，其中 IPU +8.49%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">14.39%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">25.64%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">36.90%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,22.5 157.5,20.0 273.0,21.3 388.5,29.4 504.0,29.9" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,142.1 157.5,143.0 273.0,139.5 388.5,139.5 504.0,146.0" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="22.5" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="142.1" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="143.0" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="21.3" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="139.5" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="29.4" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="139.5" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="29.9" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="146.0" r="3.5" fill="#216869"></circle><text x="42.0" y="12.5" text-anchor="middle" class="chart-value retention">36.45%</text><text x="42.0" y="158.1" text-anchor="middle" class="chart-value roi">15.09%</text><text x="157.5" y="10.0" text-anchor="middle" class="chart-value retention">36.90%</text><text x="157.5" y="159.0" text-anchor="middle" class="chart-value roi">14.92%</text><text x="273.0" y="11.3" text-anchor="middle" class="chart-value retention">36.67%</text><text x="273.0" y="155.5" text-anchor="middle" class="chart-value roi">15.55%</text><text x="388.5" y="19.4" text-anchor="middle" class="chart-value retention">35.23%</text><text x="388.5" y="155.5" text-anchor="middle" class="chart-value roi">15.56%</text><text x="504.0" y="19.9" text-anchor="middle" class="chart-value retention">35.13%</text><text x="504.0" y="162.0" text-anchor="middle" class="chart-value roi">14.39%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
+    </section>
+    
+    <section class="card" id="pkg-R307B" data-package="R307B">
+      <div class="card-head">
+        <h2>R307B</h2>
+        <div class="badge down">ROI下跌</div>
+      </div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6187 <span class="arrow">→</span> 0.5535</div><div class="roi-hero-delta">下跌 -10.54%</div></div>
+      
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>1079.08 -> 567.76</strong><em class="down">-47.38%</em></div>
+        <div class="metric"><span>Revenue</span><strong>667.63 -> 314.27</strong><em class="down">-52.93%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.3913 -> 0.4950</strong><em class="up">+26.51%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.2421 -> 0.2740</strong><em class="up">+13.19%</em></div>
+        <div class="metric"><span>eCPM</span><strong>52.7685 -> 77.1016</strong><em class="up">+46.11%</em></div>
+        <div class="metric"><span>IPU</span><strong>4.5874 -> 3.5536</strong><em class="down">-22.53%</em></div>
+      </div>
+      <p class="primary">主因判断：CPI</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + tiktok</td><td>29.83</td><td>5.3%</td><td><span class="down">1.0848 -> 0.3751</span></td><td><span class="down">ARPU -67.41%，其中 IPU -81.88%</span></td></tr><tr><td>TR + facebook</td><td>25.44</td><td>4.5%</td><td><span class="down">0.9036 -> 0.3555</span></td><td><span class="down">ARPU -56.75%，其中 IPU -45.34%</span></td></tr><tr><td>BR + facebook</td><td>28.53</td><td>5.0%</td><td><span class="down">0.7679 -> 0.6651</span></td><td><span class="down">ARPU -34.83%，其中 IPU -24.53%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + facebook</td><td>259.37</td><td>45.7%</td><td><span class="up">0.5610 -> 0.6516</span></td><td><span class="up">ARPU +38.53%，其中 eCPM +29.95%</span></td></tr><tr><td>CL + facebook</td><td>11.62</td><td>2.0%</td><td><span class="up">0.4611 -> 0.6189</span></td><td><span class="up">ARPU +21.46%，其中 IPU +29.64%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">11.79%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">20.96%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">30.13%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,41.7 157.5,48.1 273.0,48.5 388.5,20.0 504.0,47.6" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,146.0 157.5,123.3 273.0,142.4 388.5,145.8 504.0,118.1" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="41.7" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="146.0" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="48.1" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="123.3" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="48.5" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="142.4" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="145.8" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="47.6" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="118.1" r="3.5" fill="#216869"></circle><text x="42.0" y="31.7" text-anchor="middle" class="chart-value retention">26.97%</text><text x="42.0" y="162.0" text-anchor="middle" class="chart-value roi">11.79%</text><text x="157.5" y="38.1" text-anchor="middle" class="chart-value retention">26.04%</text><text x="157.5" y="139.3" text-anchor="middle" class="chart-value roi">15.09%</text><text x="273.0" y="38.5" text-anchor="middle" class="chart-value retention">25.98%</text><text x="273.0" y="158.4" text-anchor="middle" class="chart-value roi">12.31%</text><text x="388.5" y="10.0" text-anchor="middle" class="chart-value retention">30.13%</text><text x="388.5" y="161.8" text-anchor="middle" class="chart-value roi">11.82%</text><text x="504.0" y="37.6" text-anchor="middle" class="chart-value retention">26.11%</text><text x="504.0" y="134.1" text-anchor="middle" class="chart-value roi">15.84%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
     </section>
     
     <section class="card" id="pkg-R312" data-package="R312">
@@ -602,15 +697,16 @@
         <h2>R312</h2>
         <div class="badge down">ROI下跌</div>
       </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6987 <span class="arrow">→</span> 0.6953</div><div class="roi-hero-delta">下跌 -0.49%</div></div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.7032 <span class="arrow">→</span> 0.5835</div><div class="roi-hero-delta">下跌 -17.03%</div></div>
+      
       <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>6539.67 -> 3843.24</strong><em class="down">-41.23%</em></div>
-        <div class="metric"><span>Revenue</span><strong>4569.35 -> 2672.20</strong><em class="down">-41.52%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.4826 -> 0.5056</strong><em class="up">+4.76%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.3372 -> 0.3515</strong><em class="up">+4.25%</em></div>
-        <div class="metric"><span>eCPM</span><strong>85.7064 -> 86.6558</strong><em class="up">+1.11%</em></div>
-        <div class="metric"><span>IPU</span><strong>3.9343 -> 4.0564</strong><em class="up">+3.10%</em></div>
+        <div class="metric"><span>Spend</span><strong>5896.91 -> 2923.32</strong><em class="down">-50.43%</em></div>
+        <div class="metric"><span>Revenue</span><strong>4146.78 -> 1705.69</strong><em class="down">-58.87%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.4880 -> 0.6602</strong><em class="up">+35.30%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.3431 -> 0.3852</strong><em class="up">+12.26%</em></div>
+        <div class="metric"><span>eCPM</span><strong>80.5763 -> 84.2858</strong><em class="up">+4.60%</em></div>
+        <div class="metric"><span>IPU</span><strong>4.2585 -> 4.5702</strong><em class="up">+7.32%</em></div>
       </div>
       <p class="primary">主因判断：CPI</p>
       <div class="tables">
@@ -618,17 +714,18 @@
           <h3>主要拖累项</h3>
           <table>
             <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + facebook</td><td>1344.56</td><td>35.0%</td><td><span class="down">0.6611 -> 0.6351</span></td><td><span class="up">CPI +3.29%</span></td></tr><tr><td>DE + facebook</td><td>26.84</td><td>0.7%</td><td><span class="down">1.5141 -> 0.3690</span></td><td><span class="down">ARPU -67.95%，其中 eCPM -53.63%</span></td></tr><tr><td>ES + facebook</td><td>76.47</td><td>2.0%</td><td><span class="down">0.5993 -> 0.5235</span></td><td><span class="up">CPI +10.75%</span></td></tr></tbody>
+            <tbody><tr><td>US + facebook</td><td>1368.22</td><td>46.8%</td><td><span class="down">0.6624 -> 0.4915</span></td><td><span class="up">CPI +20.93%</span></td></tr><tr><td>US + mtg</td><td>946.44</td><td>32.4%</td><td><span class="down">0.7043 -> 0.6821</span></td><td><span class="down">ARPU -13.48%，其中 IPU -12.55%</span></td></tr><tr><td>BR + facebook</td><td>28.46</td><td>1.0%</td><td><span class="down">0.7729 -> 0.5968</span></td><td><span class="down">ARPU -15.91%，其中 IPU -29.61%</span></td></tr></tbody>
           </table>
         </div>
         <div class="table-wrap">
           <h3>主要对冲项</h3>
           <table>
             <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + mtg</td><td>1586.69</td><td>41.3%</td><td><span class="up">0.7082 -> 0.7316</span></td><td><span class="down">CPI -6.85%</span></td></tr><tr><td>GB + mtg</td><td>22.89</td><td>0.6%</td><td><span class="up">0.6361 -> 1.0598</span></td><td><span class="up">ARPU +36.40%，其中 eCPM +21.10%</span></td></tr></tbody>
+            <tbody><tr><td>MX + facebook</td><td>40.34</td><td>1.4%</td><td><span class="up">0.5467 -> 0.5576</span></td><td><span class="down">CPI -13.98%</span></td></tr><tr><td>ES + facebook</td><td>27.96</td><td>1.0%</td><td><span class="up">0.5547 -> 0.5595</span></td><td><span class="down">CPI -6.64%</span></td></tr></tbody>
           </table>
         </div>
       </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">10.12%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">17.27%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">24.41%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,20.0 157.5,38.8 273.0,41.3 388.5,35.0 504.0,41.6" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,133.1 157.5,138.9 273.0,140.0 388.5,133.2 504.0,146.0" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="133.1" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="38.8" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="138.9" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="41.3" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="140.0" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="35.0" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="133.2" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="41.6" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="146.0" r="3.5" fill="#216869"></circle><text x="42.0" y="10.0" text-anchor="middle" class="chart-value retention">24.41%</text><text x="42.0" y="149.1" text-anchor="middle" class="chart-value roi">11.58%</text><text x="157.5" y="28.8" text-anchor="middle" class="chart-value retention">22.28%</text><text x="157.5" y="154.9" text-anchor="middle" class="chart-value roi">10.92%</text><text x="273.0" y="31.3" text-anchor="middle" class="chart-value retention">21.99%</text><text x="273.0" y="156.0" text-anchor="middle" class="chart-value roi">10.80%</text><text x="388.5" y="25.0" text-anchor="middle" class="chart-value retention">22.71%</text><text x="388.5" y="149.2" text-anchor="middle" class="chart-value roi">11.57%</text><text x="504.0" y="31.6" text-anchor="middle" class="chart-value retention">21.96%</text><text x="504.0" y="162.0" text-anchor="middle" class="chart-value roi">10.12%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
     </section>
     
     <section class="card" id="pkg-R312C" data-package="R312C">
@@ -636,15 +733,16 @@
         <h2>R312C</h2>
         <div class="badge down">ROI下跌</div>
       </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.5627 <span class="arrow">→</span> 0.4934</div><div class="roi-hero-delta">下跌 -12.32%</div></div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.5663 <span class="arrow">→</span> 0.4921</div><div class="roi-hero-delta">下跌 -13.10%</div></div>
+      
       <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>1228.15 -> 920.95</strong><em class="down">-25.01%</em></div>
-        <div class="metric"><span>Revenue</span><strong>691.07 -> 454.36</strong><em class="down">-34.25%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.3475 -> 0.3244</strong><em class="down">-6.66%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.1955 -> 0.1600</strong><em class="down">-18.16%</em></div>
-        <div class="metric"><span>eCPM</span><strong>36.0967 -> 35.9519</strong><em class="down">-0.40%</em></div>
-        <div class="metric"><span>IPU</span><strong>5.4174 -> 4.4516</strong><em class="down">-17.83%</em></div>
+        <div class="metric"><span>Spend</span><strong>1059.85 -> 737.88</strong><em class="down">-30.38%</em></div>
+        <div class="metric"><span>Revenue</span><strong>600.17 -> 363.13</strong><em class="down">-39.50%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.3105 -> 0.2622</strong><em class="down">-15.56%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.1758 -> 0.1290</strong><em class="down">-26.62%</em></div>
+        <div class="metric"><span>eCPM</span><strong>34.9546 -> 30.3314</strong><em class="down">-13.23%</em></div>
+        <div class="metric"><span>IPU</span><strong>5.0308 -> 4.2544</strong><em class="down">-15.43%</em></div>
       </div>
       <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
       <div class="tables">
@@ -652,17 +750,18 @@
           <h3>主要拖累项</h3>
           <table>
             <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + google</td><td>545.71</td><td>59.3%</td><td><span class="down">0.5341 -> 0.4742</span></td><td><span class="down">ARPU -11.42%，其中 IPU -21.29%</span></td></tr><tr><td>CO + google</td><td>28.30</td><td>3.1%</td><td><span class="down">0.9461 -> 0.5473</span></td><td><span class="down">ARPU -38.24%，其中 IPU -24.98%</span></td></tr><tr><td>MX + google</td><td>65.63</td><td>7.1%</td><td><span class="down">0.7893 -> 0.6157</span></td><td><span class="down">ARPU -18.55%，其中 IPU -19.91%</span></td></tr></tbody>
+            <tbody><tr><td>ES + google</td><td>48.52</td><td>6.6%</td><td><span class="down">0.6436 -> 0.4025</span></td><td><span class="down">ARPU -26.91%，其中 eCPM -33.50%</span></td></tr><tr><td>US + google</td><td>380.55</td><td>51.6%</td><td><span class="down">0.5267 -> 0.5040</span></td><td><span class="down">ARPU -17.94%，其中 eCPM -24.01%</span></td></tr><tr><td>AU + google</td><td>20.38</td><td>2.8%</td><td><span class="down">0.7143 -> 0.3926</span></td><td><span class="up">CPI +38.28%</span></td></tr></tbody>
           </table>
         </div>
         <div class="table-wrap">
           <h3>主要对冲项</h3>
           <table>
             <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>ES + google</td><td>49.52</td><td>5.4%</td><td><span class="up">0.3469 -> 0.3868</span></td><td><span class="up">ARPU +19.41%，其中 eCPM +23.42%</span></td></tr><tr><td>CA + google</td><td>19.53</td><td>2.1%</td><td><span class="up">0.4161 -> 0.4987</span></td><td><span class="down">CPI -38.28%</span></td></tr></tbody>
+            <tbody><tr><td>CA + google</td><td>20.88</td><td>2.8%</td><td><span class="up">0.5345 -> 0.5909</span></td><td><span class="up">ARPU +72.00%，其中 eCPM +35.59%</span></td></tr><tr><td>AR + google</td><td>20.36</td><td>2.8%</td><td><span class="up">0.5897 -> 0.6353</span></td><td><span class="down">CPI -17.28%</span></td></tr></tbody>
           </table>
         </div>
       </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">9.60%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">19.98%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">30.35%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,32.3 157.5,28.6 273.0,20.0 388.5,24.5 504.0,36.4" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,146.0 157.5,126.6 273.0,123.4 388.5,141.6 504.0,130.5" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="32.3" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="146.0" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="28.6" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="126.6" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="123.4" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="24.5" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="141.6" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="36.4" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="130.5" r="3.5" fill="#216869"></circle><text x="42.0" y="22.3" text-anchor="middle" class="chart-value retention">28.32%</text><text x="42.0" y="162.0" text-anchor="middle" class="chart-value roi">9.60%</text><text x="157.5" y="18.6" text-anchor="middle" class="chart-value retention">28.93%</text><text x="157.5" y="142.6" text-anchor="middle" class="chart-value roi">12.80%</text><text x="273.0" y="10.0" text-anchor="middle" class="chart-value retention">30.35%</text><text x="273.0" y="139.4" text-anchor="middle" class="chart-value roi">13.32%</text><text x="388.5" y="14.5" text-anchor="middle" class="chart-value retention">29.61%</text><text x="388.5" y="157.6" text-anchor="middle" class="chart-value roi">10.33%</text><text x="504.0" y="26.4" text-anchor="middle" class="chart-value retention">27.65%</text><text x="504.0" y="146.5" text-anchor="middle" class="chart-value roi">12.15%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
     </section>
     
     <section class="card" id="pkg-R316" data-package="R316">
@@ -670,83 +769,16 @@
         <h2>R316</h2>
         <div class="badge down">ROI下跌</div>
       </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.7397 <span class="arrow">→</span> 0.6871</div><div class="roi-hero-delta">下跌 -7.10%</div></div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.7251 <span class="arrow">→</span> 0.6123</div><div class="roi-hero-delta">下跌 -15.55%</div></div>
+      
       <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>6329.57 -> 4147.66</strong><em class="down">-34.47%</em></div>
-        <div class="metric"><span>Revenue</span><strong>4681.87 -> 2850.02</strong><em class="down">-39.13%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.3121 -> 0.3130</strong><em class="up">+0.29%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.2309 -> 0.2151</strong><em class="down">-6.84%</em></div>
-        <div class="metric"><span>eCPM</span><strong>53.0619 -> 53.2882</strong><em class="up">+0.43%</em></div>
-        <div class="metric"><span>IPU</span><strong>4.3508 -> 4.0361</strong><em class="down">-7.23%</em></div>
-      </div>
-      <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
-      <div class="tables">
-        <div class="table-wrap">
-          <h3>主要拖累项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + facebook</td><td>978.11</td><td>23.6%</td><td><span class="down">0.6932 -> 0.5915</span></td><td><span class="down">ARPU -18.52%，其中 IPU -10.72%</span></td></tr><tr><td>US + tiktok</td><td>92.08</td><td>2.2%</td><td><span class="down">1.0612 -> 0.5810</span></td><td><span class="up">CPI +170.68%</span></td></tr><tr><td>TR + facebook</td><td>184.99</td><td>4.5%</td><td><span class="down">0.8098 -> 0.6753</span></td><td><span class="down">ARPU -14.00%，其中 IPU -19.05%</span></td></tr></tbody>
-          </table>
-        </div>
-        <div class="table-wrap">
-          <h3>主要对冲项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>DE + mtg</td><td>23.25</td><td>0.6%</td><td><span class="up">0.7701 -> 1.3511</span></td><td><span class="up">ARPU +95.29%，其中 eCPM +48.04%</span></td></tr><tr><td>CA + mtg</td><td>52.97</td><td>1.3%</td><td><span class="up">0.5665 -> 0.9283</span></td><td><span class="up">ARPU +66.08%，其中 eCPM +35.32%</span></td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    
-    <section class="card" id="pkg-R316B" data-package="R316B">
-      <div class="card-head">
-        <h2>R316B</h2>
-        <div class="badge down">ROI下跌</div>
-      </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.8770 <span class="arrow">→</span> 0.7336</div><div class="roi-hero-delta">下跌 -16.36%</div></div>
-      <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>2655.19 -> 1373.99</strong><em class="down">-48.25%</em></div>
-        <div class="metric"><span>Revenue</span><strong>2328.64 -> 1007.90</strong><em class="down">-56.72%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.3023 -> 0.3143</strong><em class="up">+3.98%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.2651 -> 0.2306</strong><em class="down">-13.03%</em></div>
-        <div class="metric"><span>eCPM</span><strong>51.1126 -> 47.7702</strong><em class="down">-6.54%</em></div>
-        <div class="metric"><span>IPU</span><strong>5.1872 -> 4.8270</strong><em class="down">-6.94%</em></div>
-      </div>
-      <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
-      <div class="tables">
-        <div class="table-wrap">
-          <h3>主要拖累项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + facebook</td><td>486.17</td><td>35.4%</td><td><span class="down">0.8227 -> 0.6060</span></td><td><span class="down">ARPU -22.01%，其中 eCPM -14.99%</span></td></tr><tr><td>MX + facebook</td><td>268.15</td><td>19.5%</td><td><span class="down">1.0304 -> 0.8169</span></td><td><span class="down">ARPU -17.12%，其中 IPU -13.24%</span></td></tr><tr><td>SV + facebook</td><td>35.98</td><td>2.6%</td><td><span class="down">1.3395 -> 0.6138</span></td><td><span class="down">ARPU -61.15%，其中 eCPM -46.27%</span></td></tr></tbody>
-          </table>
-        </div>
-        <div class="table-wrap">
-          <h3>主要对冲项</h3>
-          <table>
-            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>ES + facebook</td><td>60.33</td><td>4.4%</td><td><span class="up">0.8632 -> 1.0127</span></td><td><span class="up">ARPU +12.40%，其中 eCPM +23.72%</span></td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    
-    <section class="card" id="pkg-R319" data-package="R319">
-      <div class="card-head">
-        <h2>R319</h2>
-        <div class="badge down">ROI下跌</div>
-      </div>
-      <div class="subhead">2026-04-14 vs 2026-04-13</div>
-      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.6297 <span class="arrow">→</span> 0.3232</div><div class="roi-hero-delta">下跌 -48.68%</div></div>
-      <div class="metrics">
-        <div class="metric"><span>Spend</span><strong>28.70 -> 43.52</strong><em class="up">+51.64%</em></div>
-        <div class="metric"><span>Revenue</span><strong>18.07 -> 14.06</strong><em class="down">-22.19%</em></div>
-        <div class="metric"><span>CPI</span><strong>0.3500 -> 0.4782</strong><em class="up">+36.64%</em></div>
-        <div class="metric"><span>ARPU</span><strong>0.2204 -> 0.1545</strong><em class="down">-29.88%</em></div>
-        <div class="metric"><span>eCPM</span><strong>68.4598 -> 53.6786</strong><em class="down">-21.59%</em></div>
-        <div class="metric"><span>IPU</span><strong>3.2195 -> 2.8791</strong><em class="down">-10.57%</em></div>
+        <div class="metric"><span>Spend</span><strong>6488.02 -> 3077.97</strong><em class="down">-52.56%</em></div>
+        <div class="metric"><span>Revenue</span><strong>4704.18 -> 1884.71</strong><em class="down">-59.94%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.3121 -> 0.3504</strong><em class="up">+12.28%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.2263 -> 0.2145</strong><em class="down">-5.18%</em></div>
+        <div class="metric"><span>eCPM</span><strong>50.9723 -> 53.3096</strong><em class="up">+4.59%</em></div>
+        <div class="metric"><span>IPU</span><strong>4.4389 -> 4.0244</strong><em class="down">-9.34%</em></div>
       </div>
       <p class="primary">主因判断：CPI</p>
       <div class="tables">
@@ -754,17 +786,90 @@
           <h3>主要拖累项</h3>
           <table>
             <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td>US + google</td><td>35.99</td><td>82.7%</td><td><span class="down">0.7074 -> 0.3182</span></td><td><span class="down">ARPU -39.71%，其中 eCPM -24.65%</span></td></tr><tr><td>MX + google</td><td>7.53</td><td>17.3%</td><td><span class="down">0.4408 -> 0.3469</span></td><td><span class="down">ARPU -30.32%，其中 eCPM -26.15%</span></td></tr></tbody>
+            <tbody><tr><td>US + facebook</td><td>736.35</td><td>23.9%</td><td><span class="down">0.6858 -> 0.5474</span></td><td><span class="up">CPI +13.54%</span></td></tr><tr><td>BR + facebook</td><td>305.83</td><td>9.9%</td><td><span class="down">0.7311 -> 0.5793</span></td><td><span class="down">ARPU -15.61%，其中 IPU -11.86%</span></td></tr><tr><td>TR + facebook</td><td>113.96</td><td>3.7%</td><td><span class="down">0.7581 -> 0.5521</span></td><td><span class="down">ARPU -24.82%，其中 IPU -17.78%</span></td></tr></tbody>
           </table>
         </div>
         <div class="table-wrap">
           <h3>主要对冲项</h3>
           <table>
             <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
-            <tbody><tr><td colspan='5'>无</td></tr></tbody>
+            <tbody><tr><td>JP + mtg</td><td>50.43</td><td>1.6%</td><td><span class="up">0.6723 -> 0.7470</span></td><td><span class="down">CPI -22.44%</span></td></tr><tr><td>PE + facebook</td><td>25.83</td><td>0.8%</td><td><span class="up">0.6167 -> 0.7329</span></td><td><span class="down">CPI -16.02%</span></td></tr></tbody>
           </table>
         </div>
       </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">12.71%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">19.36%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">26.01%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,27.4 157.5,29.0 273.0,39.5 388.5,20.0 504.0,44.4" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,137.1 157.5,124.8 273.0,144.3 388.5,131.9 504.0,146.0" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="27.4" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="137.1" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="29.0" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="124.8" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="39.5" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="144.3" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="131.9" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="44.4" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="146.0" r="3.5" fill="#216869"></circle><text x="42.0" y="17.4" text-anchor="middle" class="chart-value retention">25.23%</text><text x="42.0" y="153.1" text-anchor="middle" class="chart-value roi">13.65%</text><text x="157.5" y="19.0" text-anchor="middle" class="chart-value retention">25.06%</text><text x="157.5" y="140.8" text-anchor="middle" class="chart-value roi">14.95%</text><text x="273.0" y="29.5" text-anchor="middle" class="chart-value retention">23.95%</text><text x="273.0" y="160.3" text-anchor="middle" class="chart-value roi">12.89%</text><text x="388.5" y="10.0" text-anchor="middle" class="chart-value retention">26.01%</text><text x="388.5" y="147.9" text-anchor="middle" class="chart-value roi">14.20%</text><text x="504.0" y="34.4" text-anchor="middle" class="chart-value retention">23.44%</text><text x="504.0" y="162.0" text-anchor="middle" class="chart-value roi">12.71%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
+    </section>
+    
+    <section class="card" id="pkg-R316B" data-package="R316B">
+      <div class="card-head">
+        <h2>R316B</h2>
+        <div class="badge down">ROI下跌</div>
+      </div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero down"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.7815 <span class="arrow">→</span> 0.6841</div><div class="roi-hero-delta">下跌 -12.46%</div></div>
+      
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>2854.29 -> 763.06</strong><em class="down">-73.27%</em></div>
+        <div class="metric"><span>Revenue</span><strong>2230.53 -> 522.02</strong><em class="down">-76.60%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.2933 -> 0.2567</strong><em class="down">-12.48%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.2292 -> 0.1756</strong><em class="down">-23.38%</em></div>
+        <div class="metric"><span>eCPM</span><strong>46.6785 -> 41.5620</strong><em class="down">-10.96%</em></div>
+        <div class="metric"><span>IPU</span><strong>4.9111 -> 4.2261</strong><em class="down">-13.95%</em></div>
+      </div>
+      <p class="primary">主因判断：ARPU，其中更偏向 IPU</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + facebook</td><td>211.80</td><td>27.8%</td><td><span class="down">0.6830 -> 0.5493</span></td><td><span class="down">ARPU -14.50%，其中 eCPM +48.93%</span></td></tr><tr><td>ES + facebook</td><td>34.50</td><td>4.5%</td><td><span class="down">0.9660 -> 0.5984</span></td><td><span class="down">ARPU -43.79%，其中 IPU -33.70%</span></td></tr><tr><td>MX + facebook</td><td>149.71</td><td>19.6%</td><td><span class="down">0.8226 -> 0.7532</span></td><td><span class="down">ARPU -21.58%，其中 IPU -18.46%</span></td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>PE + facebook</td><td>37.85</td><td>5.0%</td><td><span class="up">0.7752 -> 0.7987</span></td><td><span class="down">CPI -27.81%</span></td></tr><tr><td>SV + facebook</td><td>26.71</td><td>3.5%</td><td><span class="up">0.6385 -> 0.6561</span></td><td><span class="down">CPI -7.16%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">18.69%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">27.11%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">35.52%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,42.6 157.5,29.4 273.0,20.0 388.5,34.4 504.0,43.9" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,145.7 157.5,143.3 273.0,142.1 388.5,138.9 504.0,146.0" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="42.6" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="145.7" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="29.4" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="143.3" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="142.1" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="34.4" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="138.9" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="43.9" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="146.0" r="3.5" fill="#216869"></circle><text x="42.0" y="32.6" text-anchor="middle" class="chart-value retention">32.50%</text><text x="42.0" y="161.7" text-anchor="middle" class="chart-value roi">18.74%</text><text x="157.5" y="19.4" text-anchor="middle" class="chart-value retention">34.27%</text><text x="157.5" y="159.3" text-anchor="middle" class="chart-value roi">19.06%</text><text x="273.0" y="10.0" text-anchor="middle" class="chart-value retention">35.52%</text><text x="273.0" y="158.1" text-anchor="middle" class="chart-value roi">19.21%</text><text x="388.5" y="24.4" text-anchor="middle" class="chart-value retention">33.59%</text><text x="388.5" y="154.9" text-anchor="middle" class="chart-value roi">19.65%</text><text x="504.0" y="33.9" text-anchor="middle" class="chart-value retention">32.33%</text><text x="504.0" y="162.0" text-anchor="middle" class="chart-value roi">18.69%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
+    </section>
+    
+    <section class="card" id="pkg-R319" data-package="R319">
+      <div class="card-head">
+        <h2>R319</h2>
+        <div class="badge up">ROI上涨</div>
+      </div>
+      <div class="subhead">2026-04-15 vs 2026-04-14</div>
+      <div class="roi-hero up"><div class="roi-hero-label">ROI 变化</div><div class="roi-hero-values">0.3522 <span class="arrow">→</span> 0.5232</div><div class="roi-hero-delta">上涨 +48.54%</div></div>
+      
+      <div class="metrics">
+        <div class="metric"><span>Spend</span><strong>72.13 -> 25.29</strong><em class="down">-64.94%</em></div>
+        <div class="metric"><span>Revenue</span><strong>25.41 -> 13.23</strong><em class="down">-47.92%</em></div>
+        <div class="metric"><span>CPI</span><strong>0.6741 -> 0.7903</strong><em class="up">+17.24%</em></div>
+        <div class="metric"><span>ARPU</span><strong>0.2374 -> 0.4135</strong><em class="up">+74.15%</em></div>
+        <div class="metric"><span>eCPM</span><strong>84.6893 -> 124.8321</strong><em class="up">+47.40%</em></div>
+        <div class="metric"><span>IPU</span><strong>2.8037 -> 3.3125</strong><em class="up">+18.15%</em></div>
+      </div>
+      <p class="primary">主因判断：ARPU，其中更偏向 eCPM</p>
+      <div class="tables">
+        <div class="table-wrap">
+          <h3>主要拖累项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td colspan='5'>暂无</td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <h3>主要对冲项</h3>
+          <table>
+            <thead><tr><th>地区 + 渠道</th><th>Spend</th><th>占比</th><th>ROI</th><th>主因</th></tr></thead>
+            <tbody><tr><td>US + google</td><td>25.29</td><td>100.0%</td><td><span class="up">0.3556 -> 0.5232</span></td><td><span class="down">CPI -42.02%</span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart-card"><div class='chart-title'>近7日完整数据趋势</div><div class="chart-legend"><span><i class="legend-dot retention"></i>D1留存率</span><span><i class="legend-dot roi"></i>次日ROI</span></div><svg viewBox="0 0 520 180" class="chart-svg" role="img" aria-label="近7日完整数据趋势"><line x1="42" y1="146.0" x2="504" y2="146.0" class="chart-grid"></line><text x="34" y="150.0" text-anchor="end" class="chart-axis-label">2.52%</text><line x1="42" y1="83.0" x2="504" y2="83.0" class="chart-grid"></line><text x="34" y="87.0" text-anchor="end" class="chart-axis-label">30.43%</text><line x1="42" y1="20.0" x2="504" y2="20.0" class="chart-grid"></line><text x="34" y="24.0" text-anchor="end" class="chart-axis-label">58.33%</text><polyline fill="none" stroke="#c97c5d" stroke-width="3" points="42.0,20.0 157.5,47.9 273.0,69.6 388.5,80.0 504.0,66.3" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline fill="none" stroke="#216869" stroke-width="3" points="42.0,131.4 157.5,137.4 273.0,132.0 388.5,146.0 504.0,140.7" stroke-linecap="round" stroke-linejoin="round"></polyline><circle cx="42.0" cy="20.0" r="3.5" fill="#c97c5d"></circle><circle cx="42.0" cy="131.4" r="3.5" fill="#216869"></circle><circle cx="157.5" cy="47.9" r="3.5" fill="#c97c5d"></circle><circle cx="157.5" cy="137.4" r="3.5" fill="#216869"></circle><circle cx="273.0" cy="69.6" r="3.5" fill="#c97c5d"></circle><circle cx="273.0" cy="132.0" r="3.5" fill="#216869"></circle><circle cx="388.5" cy="80.0" r="3.5" fill="#c97c5d"></circle><circle cx="388.5" cy="146.0" r="3.5" fill="#216869"></circle><circle cx="504.0" cy="66.3" r="3.5" fill="#c97c5d"></circle><circle cx="504.0" cy="140.7" r="3.5" fill="#216869"></circle><text x="42.0" y="10.0" text-anchor="middle" class="chart-value retention">58.33%</text><text x="42.0" y="147.4" text-anchor="middle" class="chart-value roi">8.98%</text><text x="157.5" y="37.9" text-anchor="middle" class="chart-value retention">45.98%</text><text x="157.5" y="153.4" text-anchor="middle" class="chart-value roi">6.35%</text><text x="273.0" y="59.6" text-anchor="middle" class="chart-value retention">36.36%</text><text x="273.0" y="148.0" text-anchor="middle" class="chart-value roi">8.71%</text><text x="388.5" y="70.0" text-anchor="middle" class="chart-value retention">31.75%</text><text x="388.5" y="162.0" text-anchor="middle" class="chart-value roi">2.52%</text><text x="504.0" y="56.3" text-anchor="middle" class="chart-value retention">37.80%</text><text x="504.0" y="156.7" text-anchor="middle" class="chart-value roi">4.85%</text><text x="42.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-09</text><text x="157.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-10</text><text x="273.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-11</text><text x="388.5" y="170.0" text-anchor="middle" class="chart-axis-label">04-12</text><text x="504.0" y="170.0" text-anchor="middle" class="chart-axis-label">04-13</text></svg></div>
     </section>
     </div>
   </div>
