@@ -122,6 +122,30 @@
       font-size: 13px;
     }
     .quick-links a:hover { background: rgba(201,124,93,0.12); }
+    .back-to-top {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(216,207,194,0.95);
+      background: rgba(31,27,24,0.88);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+    .back-to-top:hover {
+      transform: translateY(-2px);
+      background: rgba(178,58,72,0.92);
+    }
     .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
     .card {
       background: var(--paper);
@@ -308,7 +332,7 @@
     }
   </style>
 </head>
-<body>
+<body id="top">
   <div class="gate" id="password-gate">
     <div class="gate-card">
       <div class="gate-title">报告访问验证</div>
@@ -321,7 +345,7 @@
   <div class="wrap" id="report-wrap" style="display:none;">
     <section class="hero">
       <h1>项目日表现汇总</h1>
-      <div class="meta">生成时间：2026-04-17 10:15:39 | 数据源：C:\Users\Administrator\Desktop\codex\0324\outputs\bi_merge_cleaning\merged_cleaned_adjust_cohort__2026-04-11_to_2026-04-17.csv</div>
+      <div class="meta">生成时间：2026-04-17 10:23:30 | 数据源：C:\Users\Administrator\Desktop\codex\0324\outputs\bi_merge_cleaning\merged_cleaned_adjust_cohort__2026-04-11_to_2026-04-17.csv</div>
       <div class="toolbar">
         <label for="package-jump">快速定位项目</label>
         <select id="package-jump">
@@ -873,6 +897,7 @@
     </section>
     </div>
   </div>
+  <a class="back-to-top" href="#top" id="back-to-top">回到顶部</a>
   <script>
     const expectedPassword = "fafafa";
     const gate = document.getElementById('password-gate');
