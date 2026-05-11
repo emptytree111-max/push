@@ -1029,7 +1029,7 @@
         <h2>IAA 项目效益 / 支出完成率象限图</h2>
         <div class="badge flat">独立模块</div>
       </div>
-      <div class="subhead">来源：iaa_quadrant__project__today_yesterday__2026-05-11_and_2026-05-10__20260511_105022.html；嵌入时间：2026-05-11 10:50:22</div>
+      <div class="subhead">来源：iaa_quadrant__project__today_yesterday__2026-05-11_and_2026-05-10__20260511_105531.html；嵌入时间：2026-05-11 10:55:31</div>
       <iframe
         title="IAA 项目象限图"
         srcdoc="&lt;!doctype html&gt;
@@ -1311,7 +1311,7 @@
     &lt;/section&gt;
 
     &lt;div class=&quot;footer&quot;&gt;
-      &lt;p&gt;生成时间：2026-05-11 10:50:22。来源：merged_cleaned_adjust_cohort__2026-05-05_to_2026-05-11.csv。独立数据表：iaa_quadrant__project__today_yesterday__2026-05-11_and_2026-05-10__20260511_105022.csv。&lt;br&gt;今日和昨日的次留均用各自参考日期做加权预估。&lt;/p&gt;
+      &lt;p&gt;生成时间：2026-05-11 10:55:31。来源：merged_cleaned_adjust_cohort__2026-05-05_to_2026-05-11.csv。独立数据表：iaa_quadrant__project__today_yesterday__2026-05-11_and_2026-05-10__20260511_105531.csv。&lt;br&gt;今日和昨日的次留均用各自参考日期做加权预估。&lt;/p&gt;
       &lt;p&gt;-横轴：RM 开头 = (预估次留 - (0.5 - ROI × 0.4)) / (0.5 - ROI × 0.4)，即基准 kpi 为首日 ROI 70%，次留 22%，然后首日 ROI 每往上提高 10%，次留可下降 4%；R3 开头 = (预估次留 - (0.48 - ROI × 0.4)) / (0.48 - ROI × 0.4)，即基准 kpi 为首日 ROI 70%，次留 20%，然后首日 ROI 每往上提高 10%，次留可下降 4%。&lt;/p&gt;
       &lt;p&gt;-纵轴：实际消耗 / 效益系数档位预算。&lt;br&gt;预算档位：单渠道按效益系数定档，≥ 0.4：10000；0.3-0.4：6000；0.2-0.3：3000；0.1-0.2：1500；0-0.1：1000；&amp;lt; 0：800。全部渠道仅计入消耗占项目全部消耗 ≥10% 的渠道预算档位；今日预算按数据源更新小时/24折算。&lt;/p&gt;
     &lt;/div&gt;
@@ -1330,6 +1330,9 @@
     const fmtPct = (value, digits = 1) =&gt; `${(Number(value || 0) * 100).toFixed(digits)}%`;
     const fmtNum = (value, digits = 2) =&gt; Number(value || 0).toFixed(digits);
     const esc = (value) =&gt; String(value ?? &quot;&quot;).replace(/[&amp;&lt;&gt;&quot;&#x27;]/g, (ch) =&gt; ({&quot;&amp;&quot;:&quot;&amp;amp;&quot;,&quot;&lt;&quot;:&quot;&amp;lt;&quot;,&quot;&gt;&quot;:&quot;&amp;gt;&quot;,&quot;\&quot;&quot;:&quot;&amp;quot;&quot;,&quot;&#x27;&quot;:&quot;&amp;#39;&quot;}[ch]));
+
+    const displayXMin = -1.0;
+    const displayXMax = 1.0;
 
     function bounds(values, anchor) {
       const finite = values.filter(Number.isFinite);
@@ -1407,7 +1410,7 @@
       const plotWidth = width - left - right;
       const plotHeight = height - top - bottom;
       const rows = payload.rows;
-      const [xMin, xMax] = bounds(rows.map((row) =&gt; Number(row.benefit_coefficient)), 0);
+      const [xMin, xMax] = [displayXMin, displayXMax];
       const [yMin, yMax] = bounds(rows.map((row) =&gt; Number(row.spend_completion_rate)), 1);
       const sx = (value) =&gt; left + (value - xMin) / (xMax - xMin) * plotWidth;
       const sy = (value) =&gt; top + (yMax - value) / (yMax - yMin) * plotHeight;
@@ -1428,11 +1431,12 @@
 
       const points = rows.map((row) =&gt; {
         const x = Number(row.benefit_coefficient);
+        const displayX = Math.min(Math.max(x, displayXMin), displayXMax);
         const y = Number(row.spend_completion_rate);
         const spend = Number(row.actual_spend || 0);
         const radius = 7 + Math.sqrt(spend / maxSpend) * 16;
         const meta = quadrantMeta[row.quadrant];
-        const cx = sx(x);
+        const cx = sx(displayX);
         const cy = sy(y);
         const title = `${row.label}\n${meta.name}\n效益系数: ${x.toFixed(2)}\n支出完成率: ${fmtPct(y, 1)}\nROI: ${fmtPct(row.roi_d0, 2)}\n预估次留: ${fmtPct(row.actual_retention_d1, 2)}\n达标次留: ${fmtPct(row.target_retention_d1, 2)}\n实际消耗: ${fmtNum(spend, 2)}`;
         return `&lt;g class=&quot;point point-${row.quadrant}&quot; tabindex=&quot;0&quot;&gt;
